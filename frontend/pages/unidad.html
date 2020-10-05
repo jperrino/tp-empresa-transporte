@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link type="text/css" rel="stylesheet" href="styles/home2.css">
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container" id="containerr">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand">LOGO</a>
+      <div class="navbar-nav mr-auto">
+        <a class="nav-item nav-link active" href="home.html">Home</a>
+        <span class="nav-item nav-link">|</span>
+        <a class="nav-item dropdown active">
+          <div class="btn-group btn-group-md">
+            <a class="nav-item nav-link active" href="taller.html">Taller</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="unidad.html">Alta Unidades</a>
+              <a class="dropdown-item" href="reparacion.html">Alta Reparaciones</a>
+            </div>
+          </div>
+        </a>
+        <span class="nav-item nav-link">|</span>
+        <a class="nav-item dropdown active">
+          <div class="btn-group btn-group-md">
+            <a class="nav-item nav-link active" href="calendario-servicios.html">Calendario de Servicios</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
+            </div>
+          </div>
+        </a>
+        <span class="nav-item nav-link">|</span>
+        <a class="nav-item dropdown active">
+          <div class="btn-group btn-group-md">
+            <a class="nav-item nav-link active" href="calendario-viajes.html">Calendario de Viajes</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="viaje.html">Alta Viajes</a>
+            </div>
+          </div>
+        </a>
+        <span class="nav-item nav-link">|</span>
+        <a class="nav-item nav-link active" href="estacion.html">Alta Estaciones</a>
+        <span class="nav-item nav-link">|</span>
+        <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
+      </div>
+      <div>
+        <a href="login.html" class="btn btn-primary">Logout</a>
+      </div>
+    </nav>
+    <div class="container" id="main-container">
+      <div class="row" id="unidad-container">
+        <div class="col-md-6">
+          <h2>Unidad</h2>
+          <hr>
+          <form>
+            <div class="form-group" id="form-unidad-id">
+              <label for="input-id-unidad">ID Unidad</label>
+              <input class="form-control" type="text" id="input-id-unidad" placeholder="e.g.:1234" disabled />
+            </div>
+            <div class="form-group">
+              <label for="input-patente">Patente</label>
+              <input class="form-control" type="text" id="input-patente" placeholder="ABC-123-DF" />
+            </div>
+            <div class="form-group">
+              <label for="input-fecha-patentamiento">Fecha de Patentamiento</label>
+              <input class="form-control" type="date" id="input-fecha-patentamiento" />
+            </div>
+            <div class="form-group">
+              <label for="input-asientos-cama">Asientos Cama</label>
+              <input class="form-control" type="number" id="input-asientos-cama" placeholder="0" />
+            </div>
+            <div class="form-group">
+              <label for="input-asientos-semi">Asientos Semi Cama</label>
+              <input class="form-control" type="number" id="input-asientos-semi" placeholder="0" />
+            </div>
+            <div class="form-group">
+              <label for="select-tipo-unidad">Tipo Unidad</label>
+              <select class="form-control" id="select-tipo-unidad">
+                <option value="1">Cama</option>
+                <option value="2">Semi Cama</option>
+                <option value="3">Mixto</option>
+                <option value="-1" selected>Seleccione una opcion</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <a class="btn btn-info">Guardar</a>
+              <a class="btn btn-danger">Borrar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row" id="reparacion-container">
+        <div class="col-md-6">
+          <h2>Reparaciones</h2>
+          <hr>
+          <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Dias en reparacion</td>
+                    <td>Detalle</td>
+                    <td>Accion</td>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>
+                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
+                  <a class="btn btn-danger">Borrar</a>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>
+                  <a class="btn btn-info" href="unidad.html">Editar</a>
+                  <a class="btn btn-danger">Borrar</a>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>
+                  <a class="btn btn-info" href="unidad.html">Editar</a>
+                  <a class="btn btn-danger">Borrar</a>
+                </td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function() {
+    if ( window.location.search.indexOf('showEdit=1') != -1 ) {
+        $("#reparacion-container").show();
+    }
+    else{
+      $("#reparacion-container").hide();
+      $("#form-unidad-id").hide();
+    }
+    })
+    $("#btn-edit").on("click", function() {
+    window.location.href = "reparacion.html?edit=1";
+    })
+  </script>
+</body>
