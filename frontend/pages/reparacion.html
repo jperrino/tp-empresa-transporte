@@ -31,7 +31,7 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="calendario-servicios.html">Calendario de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
@@ -63,9 +63,9 @@
           <h2>Reparacion</h2>
           <hr>
           <form>
-            <div class="form-group">
+            <div class="form-group" id="form-reparacion-id">
               <label for="input-id-reparacion">ID Reparacion</label>
-              <input class="form-control" type="text" id="input-id-reparacion" placeholder="e.g.:1234" />
+              <input class="form-control" type="text" id="input-id-reparacion" placeholder="e.g.:1234" disabled />
             </div>
             <div class="form-group">
               <label for="input-unidad-id">ID Unidad</label>
@@ -96,6 +96,7 @@
     }
     else{
       $("#input-unidad-id").prop('disabled', false);
+      $("#form-reparacion-id").hide();
     }
     })
   </script>

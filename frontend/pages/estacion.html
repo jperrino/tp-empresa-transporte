@@ -31,7 +31,7 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="calendario-servicios.html">Calendario de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
@@ -68,8 +68,13 @@
               <input class="form-control" type="text" id="input-id-estacion" placeholder="e.g.:1234" disabled />
             </div>
               <div class="form-group">
-                <label for="input-id-localidad">ID Localidad</label>
-                <input class="form-control" type="text" id="input-id-localidad" placeholder="e.g.:1234" />
+                <label for="select-localidad">Localidad</label>
+                <select class="form-control" id="select-localidad">
+                  <option value="1">Localidad 1</option>
+                  <option value="2">Localidad 2</option>
+                  <option value="3">Localidad 3</option>
+                  <option value="-1" selected>Seleccione una opcion</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="input-direccion">Direccion</label>
