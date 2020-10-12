@@ -1,3 +1,8 @@
+<?php
+include("config/config-taller.php");
+//include("config/config-unidad.php");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +25,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="taller.html">Taller</a>
+            <a class="nav-item nav-link active" href="taller.php">Taller</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="unidad.html">Alta Unidades</a>
+              <a class="dropdown-item" href="unidad.php">Alta Unidades</a>
               <a class="dropdown-item" href="reparacion.html">Alta Reparaciones</a>
             </div>
           </div>
@@ -76,45 +81,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>
-                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
-                  <a class="btn btn-danger">Borrar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>
-                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
-                  <a class="btn btn-danger">Borrar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>
-                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
-                  <a class="btn btn-danger">Borrar</a>
-                </td>
-              </tr>
+              <?php
+                getUnidades(); 
+              ?>
             </tbody>
           </table>
         </div>
@@ -122,8 +91,23 @@
     </div>
   </div>
   <script>
-    $("#btn-edit").on("click", function() {
-    window.location.href = "unidad.html?showEdit=1";
+    $(".boton-edit-unidad").on("click", function() {
+    window.location.href = "unidad.php?edit=" + this.id;
     })
+    /*
+    $(function(){
+    $('.boton-delete-unidad').click(function(){
+        var url = 'config/config-unidad.php',
+        data = 
+        { 'action': 'delete',
+          'id-unidad': $('#input-id-unidad').val()
+        };
+        $.post(url, data, function (response) {
+            alert("Unidad borrada satisfactoriamente");
+            window.location.href='taller.php';
+        });
+    });
+    })
+    */
   </script>
 </body>
