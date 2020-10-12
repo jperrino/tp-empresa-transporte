@@ -24,23 +24,23 @@ Trello: https://trello.com/b/q8VAMSbz/ucalp-tp-seminario-paradigmas
     - Start 'MySQL' Module
     - Click 'MySQL' > 'Admin'
 
-    ![Xamp Control Panel](/pics/xamp_1.png)
+    ![Xamp Control Panel](/pics/xamp_1.PNG)
 
 7) In 'phpMyAdmin' go to:
     - Cuentas de usuarios > Agregar cuenta de usuario
-    ![Xamp php My Admin 1](/pics/xamp_2.png)
+    ![Xamp php My Admin 1](/pics/xamp_2.PNG)
     - Create a new user: test///test
-    ![Xamp php My Admin 2](/pics/xamp_3.png)
+    ![Xamp php My Admin 2](/pics/xamp_3.PNG)
     - Grant 'Datos' privileges
-    ![Xamp php My Admin 3](/pics/xamp_4.png)
+    ![Xamp php My Admin 3](/pics/xamp_4.PNG)
 
 8) Click 'Nueva' > set 'empresa_de_transporte' as DataBase name and click 'Crear'
-![Xamp php My Admin DB 1](/pics/xamp_5.png)
+![Xamp php My Admin DB 1](/pics/xamp_5.PNG)
 
 9) Open 'database' and click 'Importar'.
 
 10) Import file: "C:\xampp\htdocs\main\tp-empresa-transporte\bd\empresa_de_transporte.sql"
-![Xamp php My Admin DB 2](/pics/xamp_6.png)
+![Xamp php My Admin DB 2](/pics/xamp_6.PNG)
 
 11) Open a browser and navigate to:
 http://localhost
