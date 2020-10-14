@@ -1,3 +1,15 @@
+<?php
+include("config/config-reparacion.php");
+
+if(isset($_GET['edit'])){
+  $reparacion = getReparacion($_GET['edit']);
+  //getReparaciones($_GET['edit']);
+  /*
+  <?php echo (isset($result))?$result:'';?>
+  */
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +36,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="unidad.php">Alta Unidades</a>
-              <a class="dropdown-item" href="reparacion.html">Alta Reparaciones</a>
+              <a class="dropdown-item" href="reparacion.php">Alta Reparaciones</a>
             </div>
           </div>
         </a>
@@ -65,24 +77,39 @@
           <form>
             <div class="form-group" id="form-reparacion-id">
               <label for="input-id-reparacion">ID Reparacion</label>
-              <input class="form-control" type="text" id="input-id-reparacion" placeholder="e.g.:1234" disabled />
+              <input class="form-control" type="text" id="input-id-reparacion" placeholder="e.g.:1234" value="<?php echo (isset($_GET['edit']))?$reparacion->get_idReparacion():'';?>" disabled />
             </div>
+            <!--
             <div class="form-group">
-              <label for="input-unidad-id">ID Unidad</label><!--tiene que ser un select-->
-              <input class="form-control" type="text" id="input-unidad-id" placeholder="e.g.:1234" />
+              <label for="input-unidad-id">ID Unidad</label>
+              <input class="form-control" type="text" id="input-unidad-id" placeholder="e.g.:1234" value="<?php echo (isset($_GET['edit']))?$reparacion->get_idUnidad():'';?>" />
+            </div>
+            -->
+            <div class="form-group">
+              <label for="select-unidad-id">ID Unidad</label>
+              <select class="form-control" id="select-unidad-id">
+                <?php
+                     if(isset($_GET['edit'])){
+                       echo "<option value=".$reparacion->get_idUnidad()." selected >".$reparacion->get_idUnidad()."</option>";
+                     }
+                     else if(!isset($_GET['edit'])){
+                      getUnidadesParaReparar();
+                     }
+                ?>
+              </select>
             </div>
             <div class="form-group">
               <label for="input-dias-reparacion">Dias En Reparacion</label>
-              <input class="form-control" type="number" id="input-dias-reparacion" placeholder="0" />
+              <input class="form-control" type="number" id="input-dias-reparacion" placeholder="0" value="<?php echo (isset($_GET['edit']))?$reparacion->get_tiempoReparacionDias():'';?>" />
             </div>
             <div class="form-group">
               <label for="input-detalle">Detalle</label>
               <textarea class="form-control" rows="5" id="input-detalle"
-              placeholder="Detalle reparacion ..."></textarea>
+              placeholder="Detalle reparacion ..."><?php echo (isset($_GET['edit']))?$reparacion->get_detalle():'';?></textarea>
             </div>
             <div class="form-group">
-              <a class="btn btn-info">Guardar</a>
-              <a class="btn btn-danger">Borrar</a>
+              <input type="button" class="btn btn-info boton-save-reparacion" value="Guardar">
+              <input type="button" class="btn btn-danger boton-delete-reparacion" value="Borrar">
             </div>
           </form>
         </div>
@@ -91,13 +118,50 @@
   </div>
   <script>
         $(function() {
-    if ( window.location.search.indexOf('edit=1') != -1 ) {
-        $("#input-unidad-id").prop('disabled', true);
+    if ( window.location.search.indexOf('edit=') != -1 ) {
+        $("#select-unidad-id").prop('disabled', true);
+        $(".boton-save-reparacion").attr("id","update");
     }
     else{
-      $("#input-unidad-id").prop('disabled', false);
+      $("#select-unidad-id").prop('disabled', false);
       $("#form-reparacion-id").hide();
+      $(".boton-save-reparacion").attr("id","insert");
     }
+    })
+    $(function(){
+    $('.boton-save-reparacion').click(function(){
+        var clickBtnIdAction = this.id;
+        var url = 'config/config-reparacion.php',
+        data = 
+        { 'action': clickBtnIdAction,
+          'id-reparacion': $('#input-id-reparacion').val(),
+          'id-unidad': $('#select-unidad-id').val(),
+          'dias-reparacion': $('#input-dias-reparacion').val(),
+          'detalle': $('#input-detalle').val()
+        };
+        $.post(url, data, function (response) {
+            if(clickBtnIdAction == 'insert'){
+              alert("Reparacion agregada satisfactoriamente");
+            }
+            else if(clickBtnIdAction == 'update'){
+              alert("Reparacion modificada satisfactoriamente");
+            }
+            window.location.href='taller.php';
+        });
+    });
+    })
+    $(function(){
+    $('.boton-delete-reparacion').click(function(){
+        var url = 'config/config-reparacion.php',
+        data = 
+        { 'action': 'delete',
+          'id-reparacion': $('#input-id-reparacion').val()
+        };
+        $.post(url, data, function (response) {
+            alert("Reparacion borrada satisfactoriamente");
+            window.location.href='taller.php';
+        });
+    });
     })
   </script>
 </body>

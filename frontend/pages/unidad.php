@@ -36,7 +36,7 @@ if(isset($_GET['edit'])){
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="unidad.php">Alta Unidades</a>
-              <a class="dropdown-item" href="reparacion.html">Alta Reparaciones</a>
+              <a class="dropdown-item" href="reparacion.php">Alta Reparaciones</a>
             </div>
           </div>
         </a>
@@ -149,8 +149,8 @@ if(isset($_GET['edit'])){
       $(".boton-save-unidad").attr("id","insert");
     }
     })
-    $("#btn-edit").on("click", function() {
-    window.location.href = "reparacion.html?edit=1";
+    $(".boton-edit-reparacion").on("click", function() {
+    window.location.href = "reparacion.php?edit=" + this.id;
     })
     $(function(){
     $('.boton-save-unidad').click(function(){

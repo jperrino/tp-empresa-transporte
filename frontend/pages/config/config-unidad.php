@@ -131,7 +131,7 @@ include("connection.php");
         echo "<td>". $row["detalle"]."</td>";
         echo "<td>
         <input type=\"button\" class=\"btn btn-info boton-edit-reparacion\" id=\"".$row["reparacion_id"]."\" value=\"Editar\">
-        <a class=\"btn btn-danger\">Borrar</a>
+        <!-- <a class=\"btn btn-danger\">Borrar</a> -->
         </td>";
         echo "</tr>";
       }

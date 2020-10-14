@@ -29,7 +29,7 @@ include("config/config-taller.php");
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="unidad.php">Alta Unidades</a>
-              <a class="dropdown-item" href="reparacion.html">Alta Reparaciones</a>
+              <a class="dropdown-item" href="reparacion.php">Alta Reparaciones</a>
             </div>
           </div>
         </a>
