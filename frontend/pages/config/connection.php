@@ -27,7 +27,8 @@ function openConnection($username, $password){
 	$result = $conn->query($sqlQuery);
 
 	if (!$result) {
-    trigger_error('Invalid query: ' . $conn->error);
+	trigger_error('Invalid query: ' . $conn->error);
+	trigger_error('Query: '.$sqlQuery);
 	}
 
 	return $result;

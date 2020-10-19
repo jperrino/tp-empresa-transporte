@@ -1,3 +1,8 @@
+<?php
+include("config/config-listado-servicios.php");
+//include("config/config-unidad.php");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,10 +36,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
+              <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
             </div>
           </div>
         </a>
@@ -49,62 +54,80 @@
           </div>
         </a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item nav-link active" href="estacion.html">Alta Estaciones</a>
+        <a class="nav-item nav-link active" href="estacion.html"> Alta Estaciones</a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
+        <a class="nav-item nav-link active" href="chofer.html"> Alta Choferes</a>
       </div>
       <div>
         <a href="login.html" class="btn btn-primary">Logout</a>
       </div>
     </nav>
     <div class="container" id="main-container">
-      <div class="row" id="unidad-container">
-        <div class="col-md-6">
-          <h2>Servicio</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Listado de Servicios</h2>
           <hr>
           <form>
-            <div class="form-group" id="form-servicio-id">
-              <label for="input-id-servicio">ID Servicio</label>
-              <input class="form-control" type="text" id="input-id-servicio" placeholder="e.g.:1234" disabled />
-            </div>
             <div class="form-group">
-              <label for="select-tipo-unidad">Tipo Unidad</label>
-              <select class="form-control" id="select-tipo-unidad">
-                <option value="1">Cama</option>
-                <option value="2">Semi Cama</option>
-                <option value="3">Mixto</option>
-                <option value="-1" selected>Seleccione una opcion</option>
+              <label for="select-dia-semana">Dia de salida</label>
+              <select class="form-control col-md-3" id="select-dia-semana">
+                <?php
+                  if(isset($_GET['dia'])){
+                    getDiasPartida($_GET['dia']);
+                  }
+                  else{
+                    getDiasPartida('*');
+                  }
+                ?>
               </select>
             </div>
             <div class="form-group">
-              <label for="input-fecha-partida">Fecha de Partida</label>
-              <input class="form-control" type="date" id="input-fecha-partida" />
-            </div>
-            <div class="form-group">
-              <label for="input-id-estacion-origen">Estacion Origen</label><!--tiene que ser un select-->
-              <input class="form-control" type="text" id="input-id-estacion-origen" placeholder="e.g.:La Plata" />
-            </div>
-            <div class="form-group">
-              <label for="input-id-estacion-destino">Estacion Destino</label><!--tiene que ser un select-->
-              <input class="form-control" type="text" id="input-id-estacion-destino" placeholder="e.g.:La Plata" />
-            </div>
-            <div class="form-group">
-              <a class="btn btn-info">Guardar</a>
-              <a class="btn btn-danger">Borrar</a>
+              <a class="btn btn-info" id="get-servicios-by-dia">Buscar</a>
             </div>
           </form>
+
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <td>Id</td>
+                <td>Tipo unidad</td>
+                <td>Estacion origen</td>
+                <td>Estacion destino</td>
+                <td>Hora de partida</td>
+                <td>Accion</td>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              if(isset($_GET['dia'])){
+                getServiciosByDia($_GET['dia']);
+              }
+              else{
+                getServiciosByDia('*');
+              }
+              ?>
+            </tbody>
+          </table>
         </div>
       </div>
-      <br>
     </div>
   </div>
   <script>
-    $(function() {
-    if ( window.location.search.indexOf('showEdit=1') != -1 ) {
-    }
-    else{
-      $("#form-servicio-id").hide();
-    }
+    $(".boton-edit-servicio").on("click", function() {
+    window.location.href = "servicio.php?edit=" + this.id;
+    })
+    $(function(){
+    $('#get-servicios-by-dia').click(function(){
+        var clickBtnIdAction = this.id;
+        var url = 'config/config-listado-servicios.php',
+        data = 
+        { 'action': clickBtnIdAction,
+          'dia-id': parseInt($('#select-dia-semana').val(), 10)
+        };
+        $.post(url, data, function (response) {
+            window.location.href='listado-servicios.php?dia=' + $('#select-dia-semana').val();
+        });
+    });
     })
   </script>
 </body>

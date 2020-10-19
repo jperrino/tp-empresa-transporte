@@ -95,12 +95,15 @@ include("connection.php");
     }
 
     function getUnidad($idUnidad) {
-            $sql = "SELECT u.`unidad_id`, u.`patente`, u.`fecha_de_patentamiento`, u.`cantidad_de_asientos_cama`,
-              u.`cantidad_de_asientos_semicama`, u.`tipo_unidad_id` 
+            $sql = "SELECT u.`unidad_id`, 
+                            u.`patente`, 
+                            u.`fecha_de_patentamiento`, 
+                            u.`cantidad_de_asientos_cama`,
+                            u.`cantidad_de_asientos_semicama`, u.`tipo_unidad_id` 
               /*t.`descripcion` */
-              FROM `unidad` u
+                    FROM `unidad` u
               /*JOIN `tipo_unidad` t ON u.`tipo_unidad_id` = t.`tipo_unidad_id`*/
-              WHERE u.`unidad_id` = ".$idUnidad;
+                    WHERE u.`unidad_id` = ".$idUnidad;
 
       $result = executeQuery($sql);
         if ($result->num_rows > 0) {
