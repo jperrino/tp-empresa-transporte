@@ -58,7 +58,7 @@ if(isset($_GET['edit'])){
         </a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
-          <div class="btn-item dropdown active">
+          <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="estacion.php">Estaciones</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">

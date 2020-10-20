@@ -31,7 +31,7 @@ if(isset($_POST['action'])){
             echo "<td>". $row["localidad_id"]."</td>";
             echo "<td>". $row["direccion"]."</td>";
             echo "<td>". $row["telefono"]."</td>";
-            echo "<tr>";
+            echo "</tr>";
             }
         }
     }

@@ -34,10 +34,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
+              <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
             </div>
           </div>
         </a>
@@ -53,7 +53,7 @@
         </a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
-          <div class="btn-item dropdown active">
+          <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="estacion.php">Estaciones</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
@@ -76,7 +76,7 @@
           <hr>
           <form>
             <div class="form-group">
-              <label for="input-id-estacion">Estacion </label>
+              <label for="input-id-estacion">Estacion</label>
               <input class="form-control" type="text" id="input-id-estacion" placeholder="estacion" />
             </div>
             <div class="form-group">
@@ -92,7 +92,7 @@
                 <input class="form-control" type="text" id="input-telefono" placeholder="e.g.:221-5555-555" />
               </div>
             <div class="form-group">
-              <input type="button" class="btn btn-info boton-save-unidad" value="guardar">
+              <input type="button" class="btn btn-info boton-save-estacion" value="Guardar">
              <!-- <a class="btn btn-danger">Borrar</a>-->
             </div>
           </form>
@@ -104,18 +104,18 @@
   
 <script>
   $(function(){    
-    $('.boton-save-unidad').click(function(){
-     var btnaction = 'insert';
+    $('.boton-save-estacion').click(function(){
+     var btnAction = 'insert';
      var url = 'config/config-estacion.php',
      data = {
-       'action': btnaction,
+       'action': btnAction,
        'id-estacion' : $('#input-id-estacion').val(),
        'id-loc' : $('#input-localidad').val(),
        'dir' : $('#input-direccion').val(),
        'tel' :$('#input-telefono').val()
      };     
      $.post(url, data, function(response) {
-       alert("estacion agregada satisfactoriamente");
+       alert("Estacion agregada satisfactoriamente");
        windows.location.href='estacion.php';
     });
    });

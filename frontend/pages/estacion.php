@@ -34,10 +34,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
+              <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
             </div>
           </div>
         </a>
@@ -53,7 +53,7 @@
         </a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
-          <div class="btn-item dropdown active">
+          <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="estacion.php">Estaciones</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
@@ -70,7 +70,7 @@
     </nav>
     <div class="container" id="main-container">
     <div class="row" id="reparacion-container">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <h2>Estaciones</h2>
             <hr>
             <table class="table table-striped table-bordered">
