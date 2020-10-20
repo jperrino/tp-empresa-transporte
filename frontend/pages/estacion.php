@@ -1,3 +1,6 @@
+<?php
+  include("config/config-estacion.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,10 +34,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
+              <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
             </div>
           </div>
         </a>
@@ -49,7 +52,15 @@
           </div>
         </a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item nav-link active" href="estacion.html">Alta Estaciones</a>
+        <a class="nav-item dropdown active">
+          <div class="btn-item dropdown active">
+            <a class="nav-item nav-link active" href="estacion.php">Estaciones</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <div class="dropdown-menu">
+                  <a class="dropdown-item" href="altaEstaciones.php">Alta Estacion</a>
+            </div>
+          </div>
+        </a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
       </div>
@@ -58,48 +69,25 @@
       </div>
     </nav>
     <div class="container" id="main-container">
-      <div class="row">
-        <div class="col-md-6">
-          <h2>Estacion</h2>
-          <hr>
-          <form>
-            <div class="form-group" id="form-estacion-id">
-              <label for="input-id-estacion">ID </label>
-              <input class="form-control" type="text" id="input-id-estacion" placeholder="e.g.:1234" disabled />
-            </div>
-              <div class="form-group">
-                <label for="select-localidad">Localidad</label>
-                <select class="form-control" id="select-localidad">
-                  <option value="1">Localidad 1</option>
-                  <option value="2">Localidad 2</option>
-                  <option value="3">Localidad 3</option>
-                  <option value="-1" selected>Seleccione una opcion</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="input-direccion">Direccion</label>
-                <input class="form-control" type="text" id="input-direccion" placeholder="e.g.:calle falsa 123" />
-              </div>
-              <div class="form-group">
-                <label for="input-telefono">Telefono</label>
-                <input class="form-control" type="text" id="input-telefono" placeholder="e.g.:221-5555-555" />
-              </div>
-            <div class="form-group">
-              <a class="btn btn-info">Guardar</a>
-              <a class="btn btn-danger">Borrar</a>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="row" id="reparacion-container">
+          <div class="col-md-6">
+            <h2>Estaciones</h2>
+            <hr>
+            <table class="table table-striped table-bordered">
+              <thead>
+                  <tr>
+                      <td>Estacion</td>
+                      <td>Localidad</td>
+                      <td>Direccion</td>
+                      <td>Telefono</td>
+                  </tr>
+              </thead>
+              <tbody>
+              <?php
+                getEstacion();               
+              ?>
+              </tbody>
+              </table>
+          </div>
     </div>
   </div>
-  <script>
-    $(function() {
-    if ( window.location.search.indexOf('showEdit=1') != -1 ) {
-    }
-    else{
-      $("#form-estacion-id").hide();
-    }
-    })
-  </script>
-</body>

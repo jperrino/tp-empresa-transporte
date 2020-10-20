@@ -1,3 +1,6 @@
+<?php
+  include("config/config-estacion.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,10 +34,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
+            <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
+              <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
             </div>
           </div>
         </a>
@@ -65,75 +68,58 @@
         <a href="login.html" class="btn btn-primary">Logout</a>
       </div>
     </nav>
+
     <div class="container" id="main-container">
       <div class="row">
-        <div class="col-md-12">
-          <h2>Calendario de Viajes</h2>
+        <div class="col-md-6">
+          <h2>Estacion</h2>
           <hr>
-          <form class="form-inline">
+          <form>
             <div class="form-group">
-              <label for="input-fecha-salida" class="lbl-fecha-calendario">Fecha de Salida</label>
-              <input class="form-control" type="date" id="input-fecha-salida" />
+              <label for="input-id-estacion">Estacion </label>
+              <input class="form-control" type="text" id="input-id-estacion" placeholder="estacion" />
             </div>
             <div class="form-group">
-              <label for="input-fecha-llegada" class="lbl-fecha-calendario">Fecha de LLegada</label>
-              <input class="form-control" type="date" id="input-fecha-llegada" />
-            </div>
+                <label for="input-localidad">Localidad</label>
+                <input class="form-control" type="text" id="input-localidad" placeholder="localidad" />
+              </div>
+              <div class="form-group">
+                <label for="input-direccion">Direccion</label>
+                <input class="form-control" type="text" id="input-direccion" placeholder="e.g.:calle falsa 123" />
+              </div>
+              <div class="form-group">
+                <label for="input-telefono">Telefono</label>
+                <input class="form-control" type="text" id="input-telefono" placeholder="e.g.:221-5555-555" />
+              </div>
             <div class="form-group">
-              <a class="btn btn-info">Buscar</a>
+              <input type="button" class="btn btn-info boton-save-unidad" value="guardar">
+             <!-- <a class="btn btn-danger">Borrar</a>-->
             </div>
           </form>
-          <br>
-          <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <td>Id</td>
-                <td>Servicio</td>
-                <td>Unidad Id</td>
-                <td>Fecha de Salida</td>
-                <td>Accion</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>
-                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
-                  <a class="btn btn-danger">Borrar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>
-                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
-                  <a class="btn btn-danger">Borrar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>
-                  <input type="button" class="btn btn-info" id="btn-edit" value="Editar">
-                  <a class="btn btn-danger">Borrar</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
   </div>
-  <script>
-    $("#btn-edit").on("click", function() {
-    window.location.href = "viaje.html?showEdit=1";
-    })
+
+  
+<script>
+  $(function(){    
+    $('.boton-save-unidad').click(function(){
+     var btnaction = 'insert';
+     var url = 'config/config-estacion.php',
+     data = {
+       'action': btnaction,
+       'id-estacion' : $('#input-id-estacion').val(),
+       'id-loc' : $('#input-localidad').val(),
+       'dir' : $('#input-direccion').val(),
+       'tel' :$('#input-telefono').val()
+     };     
+     $.post(url, data, function(response) {
+       alert("estacion agregada satisfactoriamente");
+       windows.location.href='estacion.php';
+    });
+   });
+   })
   </script>
-</body>
+
+  
