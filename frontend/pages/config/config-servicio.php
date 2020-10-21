@@ -9,8 +9,9 @@ include("connection.php");
     public $horaPartida;
     public $estacionOrigen;
     public $estacionDestino;
+    public $habilitado;
 
-    function __construct($idServicio, $tipoUnidad, $diaPartida, $horaPartida, $estacionOrigen, $estacionDestino) {
+    function __construct($idServicio, $tipoUnidad, $diaPartida, $horaPartida, $estacionOrigen, $estacionDestino, $habilitado) {
        //$this->name = $name; 
         $this->idServicio = $idServicio;
         $this->tipoUnidad = $tipoUnidad;
@@ -18,6 +19,7 @@ include("connection.php");
         $this->horaPartida = $horaPartida;
         $this->estacionOrigen = $estacionOrigen;
         $this->estacionDestino = $estacionDestino;
+        $this->habilitado = $habilitado;
     }
 
     function get_idServicio() {
@@ -42,6 +44,10 @@ include("connection.php");
     
     function get_estacionDestino() {
     return $this->estacionDestino;
+    }
+
+    function get_habilitado() {
+    return $this->habilitado;
     }
 
   }
@@ -85,10 +91,11 @@ include("connection.php");
                                     $_POST['estacion-destino']);
                         }
                   break;
-            case 'delete':
-                  if (isset($_POST['id-servicio']))
+            case 'disable':
+                  if (isset($_POST['id-servicio']) &&
+                      isset($_POST['status']))
                         {
-                              deleteServicio($_POST['id-servicio']);
+                              disableServicio($_POST['id-servicio'], $_POST['status']);
                         }
                   break;
         }
@@ -100,7 +107,8 @@ include("connection.php");
                             f.`dia_id`,
                             date_format(f.`hora_partida`, '%H:%i') as `hora_de_partida`,
                             e_origen.`estacion_id` as `estacion_origen`,
-                            e_destino.`estacion_id` as `estacion_destino`  
+                            e_destino.`estacion_id` as `estacion_destino`,
+                            s.`habilitado`  
                     FROM `servicio` s
                     JOIN `fecha_partida` f ON s.`fecha_partida_id` = f.`fecha_partida_id`
                     /*
@@ -114,7 +122,7 @@ include("connection.php");
         if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        $servicio = new Servicio($row["servicio_id"], $row["tipo_unidad_id"],  $row["dia_id"],  $row["hora_de_partida"],  $row["estacion_origen"],  $row["estacion_destino"]);
+        $servicio = new Servicio($row["servicio_id"], $row["tipo_unidad_id"],  $row["dia_id"],  $row["hora_de_partida"],  $row["estacion_origen"],  $row["estacion_destino"], $row["habilitado"]);
         }
         return $servicio;
       } else {
@@ -124,7 +132,8 @@ include("connection.php");
     }
 
     function getEstaciones($servicio, $tipoEstacion){
-      $sql = "SELECT e.`estacion_id`, e.`direccion` FROM `estacion` e";
+      $sql = "SELECT e.`estacion_id`, e.`nombre` FROM `estacion` e
+              WHERE e.`habilitada` = 1";
     
       $result = executeQuery($sql);
 
@@ -144,10 +153,10 @@ include("connection.php");
           if($servicio != null){
             while($row = $result->fetch_assoc()) {
               if($estacion == $row["estacion_id"]){
-                echo "<option value=".$row["estacion_id"]." selected>".$row["direccion"]."</option>";
+                echo "<option value=".$row["estacion_id"]." selected>".$row["nombre"]."</option>";
               }
               else{
-                echo "<option value=".$row["estacion_id"].">".$row["direccion"]."</option>";
+                echo "<option value=".$row["estacion_id"].">".$row["nombre"]."</option>";
               }
             }
             /*
@@ -160,7 +169,7 @@ include("connection.php");
           }
           else{
             while($row = $result->fetch_assoc()) {
-              echo "<option value=".$row["estacion_id"].">".$row["direccion"]."</option>";
+              echo "<option value=".$row["estacion_id"].">".$row["nombre"]."</option>";
             }
             echo "<option value=\"-1\" selected>Seleccione una opcion</option>";
           }
@@ -223,16 +232,18 @@ include("connection.php");
       return $fecha_partida_id;
     }
 
-    function deleteServicio($idServicio) {
-      $fecha_partida_id = getFechaPartidaByServicio($idServicio);
-      $sql = "DELETE FROM `servicio` WHERE `servicio`.`servicio_id` = ".$idServicio;
+    function disableServicio($idServicio, $status) {
+      //$fecha_partida_id = getFechaPartidaByServicio($idServicio);
+      $sql = "UPDATE `servicio` SET `habilitado`= ".$status." WHERE `servicio`.`servicio_id` = ".$idServicio;
       $result = executeQuery($sql);
-      deleteFechaPartida($fecha_partida_id);
+      //deleteFechaPartida($fecha_partida_id);
       exit;
     }
 
+    /*
     function deleteFechaPartida($fecha_partida_id){
       $sql = "DELETE FROM `fecha_partida` WHERE `fecha_partida`.`fecha_partida_id` = ".$fecha_partida_id;
       $result = executeQuery($sql);
     }
+    */
 ?>

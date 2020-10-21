@@ -95,13 +95,13 @@ if(isset($_GET['edit'])){
             <div class="form-group">
               <label for="select-dia-partida">Dia de Partida</label>
               <select class="form-control" id="select-dia-partida">
-                <option value="1" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 1){ echo 'selected';} ?>>lunes</option>
-                <option value="2" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 2){ echo 'selected';} ?>>martes</option>
-                <option value="3" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 3){ echo 'selected';} ?>>miercoles</option>
-                <option value="4" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 4){ echo 'selected';} ?>>jueves</option>
-                <option value="5" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 5){ echo 'selected';} ?>>viernes</option>
-                <option value="6" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 6){ echo 'selected';} ?>>sabado</option>
-                <option value="7" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 7){ echo 'selected';} ?>>domingo</option>
+                <option value="1" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 1){ echo 'selected';} ?>>Lunes</option>
+                <option value="2" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 2){ echo 'selected';} ?>>Martes</option>
+                <option value="3" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 3){ echo 'selected';} ?>>Miercoles</option>
+                <option value="4" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 4){ echo 'selected';} ?>>Jueves</option>
+                <option value="5" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 5){ echo 'selected';} ?>>Viernes</option>
+                <option value="6" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 6){ echo 'selected';} ?>>Sabado</option>
+                <option value="7" <?php if(isset($_GET['edit']) && $servicio->get_diaPartida() == 7){ echo 'selected';} ?>>Domingo</option>
                 <option value="-1" <?php if(!isset($_GET['edit'])){ echo 'selected';} ?>>Seleccione una opcion</option>
               </select>
             </div>
@@ -137,7 +137,28 @@ if(isset($_GET['edit'])){
             </div>
             <div class="form-group">
             <input type="button" class="btn btn-info boton-save-servicio" value="Guardar">
-            <input type="button" class="btn btn-danger boton-delete-servicio" value="Borrar">
+            <input type="button" class="btn boton-disable-servicio 
+                                          <?php
+                                                 if(isset($_GET['edit'])){
+                                                  if($servicio->get_habilitado() == 1) echo 'btn-danger';
+                                                  else echo 'btn-success';
+                                                }
+                                                else echo '';
+                                              ?>"
+                                   id="<?php 
+                                            if(isset($_GET['edit'])){
+                                              if($servicio->get_habilitado() == 1) echo 0;
+                                              else echo 1;
+                                              }
+                                            else echo '';
+                                          ?>"
+                                   value="<?php 
+                                            if(isset($_GET['edit'])){
+                                              if($servicio->get_habilitado() == 1) echo 'Deshabilitar';
+                                              else echo 'Habilitar';
+                                              }
+                                            else echo '';
+                                          ?>">
             </div>
           </form>
         </div>
@@ -152,6 +173,7 @@ if(isset($_GET['edit'])){
     }
     else{
       $("#form-servicio-id").hide();
+      $(".boton-disable-servicio").hide();
       $(".boton-save-servicio").attr("id","insert");
     }
     })
@@ -180,14 +202,21 @@ if(isset($_GET['edit'])){
     });
     })
     $(function(){
-    $('.boton-delete-servicio').click(function(){
+    $('.boton-disable-servicio').click(function(){
+        var clickBtnIdAction = this.id;
         var url = 'config/config-servicio.php',
         data = 
-        { 'action': 'delete',
-          'id-servicio': $('#input-id-servicio').val()
+        { 'action': 'disable',
+          'id-servicio': $('#input-id-servicio').val(),
+          'status' : parseInt(this.id, 10)
         };
         $.post(url, data, function (response) {
-            alert("Servicio borrado satisfactoriamente");
+          if(clickBtnIdAction == 0){
+              alert("Servicio deshabilitado satisfactoriamente");
+            }
+            else if(clickBtnIdAction == 1){
+              alert("Servicio habilitado satisfactoriamente");
+            }
             window.location.href='listado-servicios.php';
         });
     });

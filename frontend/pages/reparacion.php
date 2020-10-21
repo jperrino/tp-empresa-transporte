@@ -94,11 +94,11 @@ if(isset($_GET['edit'])){
             </div>
             -->
             <div class="form-group">
-              <label for="select-unidad-id">ID Unidad</label>
-              <select class="form-control" id="select-unidad-id">
+              <label for="select-patente-unidad">Patente</label>
+              <select class="form-control" id="select-patente-unidad">
                 <?php
                      if(isset($_GET['edit'])){
-                       echo "<option value=".$reparacion->get_idUnidad()." selected >".$reparacion->get_idUnidad()."</option>";
+                       echo "<option value=".$reparacion->get_idUnidad()." selected >".$reparacion->get_patente_from_unidad()."</option>";
                      }
                      else if(!isset($_GET['edit'])){
                       getUnidadesParaReparar();
@@ -127,12 +127,13 @@ if(isset($_GET['edit'])){
   <script>
         $(function() {
     if ( window.location.search.indexOf('edit=') != -1 ) {
-        $("#select-unidad-id").prop('disabled', true);
+        $("#select-patente-unidad").prop('disabled', true);
         $(".boton-save-reparacion").attr("id","update");
     }
     else{
-      $("#select-unidad-id").prop('disabled', false);
+      $("#select-patente-unidad").prop('disabled', false);
       $("#form-reparacion-id").hide();
+      $(".boton-delete-reparacion").hide();
       $(".boton-save-reparacion").attr("id","insert");
     }
     })
@@ -143,7 +144,7 @@ if(isset($_GET['edit'])){
         data = 
         { 'action': clickBtnIdAction,
           'id-reparacion': $('#input-id-reparacion').val(),
-          'id-unidad': $('#select-unidad-id').val(),
+          'id-unidad': $('#select-patente-unidad').val(),
           'dias-reparacion': $('#input-dias-reparacion').val(),
           'detalle': $('#input-detalle').val()
         };

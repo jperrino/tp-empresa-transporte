@@ -78,7 +78,7 @@ include("config/config-taller.php");
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <td>Unidad</td>
+                <!-- <td>Unidad</td> -->
                 <td>Patente</td>
                 <td>Fecha de patentamiento</td>
                 <td>Asientos cama</td>

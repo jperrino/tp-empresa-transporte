@@ -4,24 +4,30 @@ include("config/connection.php");
 function getUnidades(){
   $sql = "SELECT  u.unidad_id, 
                   u.patente, 
-                  u.fecha_de_patentamiento, 
+                  DATE_FORMAT(u.fecha_de_patentamiento, \"%d-%m-%Y\") as fecha_patentamiento , 
                   u.cantidad_de_asientos_cama, 
                   u.cantidad_de_asientos_semicama, 
-                  u.tipo_unidad_id, 
+                  u.tipo_unidad_id,
+                  u.habilitada, 
                   GROUP_CONCAT(r.detalle SEPARATOR ', ' ) as `reparaciones` 
                   FROM `unidad` u 
                   LEFT JOIN `reparacion` r ON u.unidad_id = r.unidad_id 
-                  GROUP BY u.unidad_id ";
+                  GROUP BY u.unidad_id
+                  ORDER BY u.fecha_de_patentamiento ASC";
 
   $result = executeQuery($sql);
 
   if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>". $row["unidad_id"]."</td>";
+        if(intval($row["habilitada"]) == 0){
+          echo "<tr class=\"table-danger\">";
+        }
+        else echo "<tr>";
+        //echo "<tr>";
+        //echo "<td>". $row["unidad_id"]."</td>";
         echo "<td>". $row["patente"]."</td>";
-        echo "<td>". $row["fecha_de_patentamiento"]."</td>";
+        echo "<td>". $row["fecha_patentamiento"]."</td>";
         echo "<td>". $row["cantidad_de_asientos_cama"]."</td>";
         echo "<td>". $row["cantidad_de_asientos_semicama"]."</td>";
         switch($row["tipo_unidad_id"])

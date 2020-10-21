@@ -97,7 +97,7 @@ include("config/config-listado-servicios.php");
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <td>Id</td>
+                <!-- <td>Id</td> -->
                 <td>Tipo unidad</td>
                 <td>Estacion origen</td>
                 <td>Estacion destino</td>

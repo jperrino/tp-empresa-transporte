@@ -114,7 +114,28 @@ if(isset($_GET['edit'])){
             </div>
             <div class="form-group">
               <input type="button" class="btn btn-info boton-save-unidad" value="Guardar">
-              <input type="button" class="btn btn-danger boton-delete-unidad" value="Borrar">
+              <input type="button" class="btn boton-disable-unidad 
+                                          <?php
+                                                 if(isset($_GET['edit'])){
+                                                  if($unidad->get_habilitada() == 1) echo 'btn-danger';
+                                                  else echo 'btn-success';
+                                                }
+                                                else echo '';
+                                              ?>"
+                                   id="<?php 
+                                            if(isset($_GET['edit'])){
+                                              if($unidad->get_habilitada() == 1) echo 0;
+                                              else echo 1;
+                                              }
+                                            else echo '';
+                                          ?>"
+                                   value="<?php 
+                                            if(isset($_GET['edit'])){
+                                              if($unidad->get_habilitada() == 1) echo 'Deshabilitar';
+                                              else echo 'Habilitar';
+                                              }
+                                            else echo '';
+                                          ?>">
             </div>
           </form>
         </div>
@@ -127,7 +148,7 @@ if(isset($_GET['edit'])){
           <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <td>Id</td>
+                    <!-- <td>Id</td> -->
                     <td>Dias en reparacion</td>
                     <td>Detalle</td>
                     <td>Accion</td>
@@ -154,6 +175,7 @@ if(isset($_GET['edit'])){
     else{
       $("#reparacion-container").hide();
       $("#form-unidad-id").hide();
+      $(".boton-disable-unidad").hide();
       $(".boton-save-unidad").attr("id","insert");
     }
     })
@@ -185,14 +207,21 @@ if(isset($_GET['edit'])){
     });
     })
     $(function(){
-    $('.boton-delete-unidad').click(function(){
+    $('.boton-disable-unidad').click(function(){
+        var clickBtnIdAction = this.id;
         var url = 'config/config-unidad.php',
         data = 
-        { 'action': 'delete',
-          'id-unidad': $('#input-id-unidad').val()
+        { 'action': 'disable',
+          'id-unidad': $('#input-id-unidad').val(),
+          'status' : parseInt(this.id, 10)
         };
         $.post(url, data, function (response) {
-            alert("Unidad borrada satisfactoriamente");
+            if(clickBtnIdAction == 0){
+              alert("Unidad deshabilitada satisfactoriamente");
+            }
+            else if(clickBtnIdAction == 1){
+              alert("Unidad habilitada satisfactoriamente");
+            }
             window.location.href='taller.php';
         });
     });

@@ -32,13 +32,13 @@ function getDiasPartida($diaId){
         if($diaId == -1){
           $default = "selected";
         }
-        echo "<option value=\"-1\" ".$default.">todos</option>";
+        echo "<option value=\"-1\" ".$default.">Todos</option>";
       }
       else{
         while($row = $result->fetch_assoc()) {
           echo "<option value=".$row["dia_id"].">".$row["descripcion"]."</option>";
         }
-        echo "<option value=\"-1\" selected>todos</option>";
+        echo "<option value=\"-1\" selected>Todos</option>";
       }
   } else {
       echo "0 results";
@@ -47,7 +47,7 @@ function getDiasPartida($diaId){
 
 function getServiciosByDia($diaId){
 
-  if(is_numeric($diaId) AND $diaId > 1){
+  if(is_numeric($diaId) AND $diaId >= 1){
     $condition = "WHERE f.`dia_id` = ". $diaId;
   }
   else{
@@ -56,9 +56,10 @@ function getServiciosByDia($diaId){
 
   $sql = "SELECT s.`servicio_id`,
                   s.`tipo_unidad_id`,
-                  e_origen.`direccion` as `direccion_origen`,
-                  e_destino.`direccion` as `direccion_destino`,
-                  date_format(f.`hora_partida`, '%H:%i') as `hora_de_partida`
+                  e_origen.`nombre` as `e_nombre_origen`,
+                  e_destino.`nombre` as `e_nombre_destino`,
+                  date_format(f.`hora_partida`, '%H:%i') as `hora_de_partida`,
+                  s.`habilitado`
           FROM `servicio` s
           JOIN `fecha_partida` f ON s.`fecha_partida_id` = f.`fecha_partida_id`
           /*
@@ -74,8 +75,11 @@ function getServiciosByDia($diaId){
   if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>". $row["servicio_id"]."</td>";
+        if(intval($row["habilitado"]) == 0){
+          echo "<tr class=\"table-danger\">";
+        }
+        else echo "<tr>";
+        //echo "<td>". $row["servicio_id"]."</td>";
         switch($row["tipo_unidad_id"])
         {
           case 1: echo "<td> Cama </td>"; break;
@@ -83,8 +87,8 @@ function getServiciosByDia($diaId){
           case 3: echo "<td> Mixto </td>"; break;
         }
         //echo "<td>". $row["tipo_unidad_id"]."</td>";
-        echo "<td>". $row["direccion_origen"]."</td>";
-        echo "<td>". $row["direccion_destino"]."</td>";
+        echo "<td>". $row["e_nombre_origen"]."</td>";
+        echo "<td>". $row["e_nombre_destino"]."</td>";
         echo "<td>". $row["hora_de_partida"]."</td>";
         echo "<td>
         <input type=\"button\" class=\"btn btn-info boton-edit-servicio\" id=\"".$row["servicio_id"]."\" value=\"Editar\">

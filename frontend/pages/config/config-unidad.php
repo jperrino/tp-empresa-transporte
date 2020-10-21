@@ -9,8 +9,9 @@ include("connection.php");
     public $asientosCama;
     public $asientosSemi;
     public $tipoUnidad;
+    public $habilitada;
 
-    function __construct($idUnidad, $patente, $fechaPatentamiento, $asientosCama, $asientosSemi, $tipoUnidad) {
+    function __construct($idUnidad, $patente, $fechaPatentamiento, $asientosCama, $asientosSemi, $tipoUnidad, $habilitada) {
        //$this->name = $name; 
         $this->idUnidad = $idUnidad;
         $this->patente = $patente;
@@ -18,6 +19,7 @@ include("connection.php");
         $this->asientosCama = $asientosCama;
         $this->asientosSemi = $asientosSemi;
         $this->tipoUnidad = $tipoUnidad;
+        $this->habilitada = $habilitada;
     }
 
     function get_idUnidad() {
@@ -42,6 +44,10 @@ include("connection.php");
     
     function get_tipoUnidad() {
     return $this->tipoUnidad;
+    }
+
+    function get_habilitada() {
+    return $this->habilitada;
     }
 
   }
@@ -85,10 +91,11 @@ include("connection.php");
                                     $_POST['tipo-unidad']);
                         }
                   break;
-            case 'delete':
-                  if (isset($_POST['id-unidad']))
+            case 'disable':
+                  if (isset($_POST['id-unidad']) && 
+                      isset($_POST['status']))
                         {
-                              deleteUnidad($_POST['id-unidad']);
+                              disableUnidad($_POST['id-unidad'], $_POST['status']);
                         }
                   break;
         }
@@ -99,7 +106,9 @@ include("connection.php");
                             u.`patente`, 
                             u.`fecha_de_patentamiento`, 
                             u.`cantidad_de_asientos_cama`,
-                            u.`cantidad_de_asientos_semicama`, u.`tipo_unidad_id` 
+                            u.`cantidad_de_asientos_semicama`, 
+                            u.`tipo_unidad_id`,
+                            u.`habilitada` 
               /*t.`descripcion` */
                     FROM `unidad` u
               /*JOIN `tipo_unidad` t ON u.`tipo_unidad_id` = t.`tipo_unidad_id`*/
@@ -109,7 +118,7 @@ include("connection.php");
         if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        $unidad = new Unidad($row["unidad_id"], $row["patente"],  $row["fecha_de_patentamiento"],  $row["cantidad_de_asientos_cama"],  $row["cantidad_de_asientos_semicama"],  $row["tipo_unidad_id"]);
+        $unidad = new Unidad($row["unidad_id"], $row["patente"],  $row["fecha_de_patentamiento"],  $row["cantidad_de_asientos_cama"],  $row["cantidad_de_asientos_semicama"],  $row["tipo_unidad_id"], $row["habilitada"]);
         }
         return $unidad;
       } else {
@@ -129,7 +138,7 @@ include("connection.php");
       // output data of each row
       while($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>". $row["reparacion_id"]."</td>";
+        //echo "<td>". $row["reparacion_id"]."</td>";
         echo "<td>". $row["tiempo_reparacion_dias"]."</td>";
         echo "<td>". $row["detalle"]."</td>";
         echo "<td>
@@ -159,8 +168,8 @@ include("connection.php");
         exit;
     }
 
-    function deleteUnidad($idUnidad) {
-      $sql = "DELETE FROM `unidad` WHERE `unidad`.`unidad_id` = ".$idUnidad;
+    function disableUnidad($idUnidad, $status) {
+      $sql = "UPDATE `unidad` SET `habilitada` = '".$status."' WHERE `unidad`.`unidad_id` = ".$idUnidad;
 
       $result = executeQuery($sql);
       exit;

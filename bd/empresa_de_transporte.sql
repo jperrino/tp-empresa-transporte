@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2020 a las 00:58:41
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.7
+-- Tiempo de generación: 21-10-2020 a las 04:52:06
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,7 @@ CREATE TABLE `chofer` (
   `telefono_2` varchar(20) DEFAULT NULL,
   `fecha_de_nacimiento` date DEFAULT NULL,
   `fecha_de_ingreso` date DEFAULT NULL,
+  `baja` tinyint(1) NOT NULL DEFAULT 0,
   `fecha_de_baja` date DEFAULT NULL,
   `motivo_de_baja` varchar(255) DEFAULT NULL,
   `fecha_de_vencimiento_de_carnet` date DEFAULT NULL
@@ -45,8 +46,8 @@ CREATE TABLE `chofer` (
 -- Volcado de datos para la tabla `chofer`
 --
 
-INSERT INTO `chofer` (`CUIL`, `apellido`, `nombre`, `domilicio`, `telefono_1`, `telefono_2`, `fecha_de_nacimiento`, `fecha_de_ingreso`, `fecha_de_baja`, `motivo_de_baja`, `fecha_de_vencimiento_de_carnet`) VALUES
-(11111111111, 'test', 'test', 'test', '1111', '1111', '2000-10-10', '2000-10-10', NULL, NULL, '2000-10-10');
+INSERT INTO `chofer` (`CUIL`, `apellido`, `nombre`, `domilicio`, `telefono_1`, `telefono_2`, `fecha_de_nacimiento`, `fecha_de_ingreso`, `baja`, `fecha_de_baja`, `motivo_de_baja`, `fecha_de_vencimiento_de_carnet`) VALUES
+(11111111111, 'test', 'test', 'test', '1111', '1111', '2000-10-10', '2000-10-10', 0, NULL, NULL, '2000-10-10');
 
 -- --------------------------------------------------------
 
@@ -64,13 +65,13 @@ CREATE TABLE `dia` (
 --
 
 INSERT INTO `dia` (`dia_id`, `descripcion`) VALUES
-(1, 'lunes'),
-(2, 'martes'),
-(3, 'miercoles'),
-(4, 'jueves'),
-(5, 'viernes'),
-(6, 'sabado'),
-(7, 'domingo');
+(1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miercoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sabado'),
+(7, 'Domingo');
 
 -- --------------------------------------------------------
 
@@ -81,17 +82,20 @@ INSERT INTO `dia` (`dia_id`, `descripcion`) VALUES
 CREATE TABLE `estacion` (
   `estacion_id` int(11) NOT NULL,
   `localidad_id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
-  `telefono` varchar(20) DEFAULT NULL
+  `telefono` varchar(20) DEFAULT NULL,
+  `habilitada` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `estacion`
 --
 
-INSERT INTO `estacion` (`estacion_id`, `localidad_id`, `direccion`, `telefono`) VALUES
-(1, 1, 'calle 4 453', '2214273198'),
-(2, 2, 'av. Antártida Argentina', '1143100700');
+INSERT INTO `estacion` (`estacion_id`, `localidad_id`, `nombre`, `direccion`, `telefono`, `habilitada`) VALUES
+(1, 1, 'Terminal de Omnibus La Plata', 'calle 4 453', '2214273198', 1),
+(2, 2, 'Retiro', 'av. Antártida Argentina', '1143100700', 1),
+(5, 1, 'dsagdhast', 'asfg 1234', '11111111111111', 1);
 
 -- --------------------------------------------------------
 
@@ -110,9 +114,15 @@ CREATE TABLE `fecha_partida` (
 --
 
 INSERT INTO `fecha_partida` (`fecha_partida_id`, `dia_id`, `hora_partida`) VALUES
-(1, 1, '22:40:05'),
+(1, 4, '15:40:00'),
 (2, 2, '22:42:31'),
-(3, 3, '22:43:13');
+(3, 3, '22:43:13'),
+(4, 7, '23:40:05'),
+(6, 6, '21:40:00'),
+(7, 5, '11:11:00'),
+(8, 5, '11:11:00'),
+(12, 5, '11:11:00'),
+(13, 6, '13:13:00');
 
 -- --------------------------------------------------------
 
@@ -172,8 +182,12 @@ CREATE TABLE `reparacion` (
 --
 
 INSERT INTO `reparacion` (`reparacion_id`, `unidad_id`, `tiempo_reparacion_dias`, `detalle`) VALUES
-(1, 1, 5, 'test'),
-(2, 3, 6, 'test');
+(1, 1, 5, 'motor'),
+(2, 3, 6, 'frenos'),
+(3, 1, 2, 'chasis'),
+(7, 4, 6, 'vidrios'),
+(9, 5, 30, 'burro de arranque y motor'),
+(14, 4, 5, 'swqxewee');
 
 -- --------------------------------------------------------
 
@@ -186,16 +200,19 @@ CREATE TABLE `servicio` (
   `tipo_unidad_id` int(11) NOT NULL,
   `fecha_partida_id` int(11) NOT NULL,
   `estacion_id_origen` int(11) NOT NULL,
-  `estacion_id_destino` int(11) NOT NULL
+  `estacion_id_destino` int(11) NOT NULL,
+  `habilitado` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `servicio`
 --
 
-INSERT INTO `servicio` (`servicio_id`, `tipo_unidad_id`, `fecha_partida_id`, `estacion_id_origen`, `estacion_id_destino`) VALUES
-(1, 1, 1, 1, 2),
-(2, 3, 2, 2, 1);
+INSERT INTO `servicio` (`servicio_id`, `tipo_unidad_id`, `fecha_partida_id`, `estacion_id_origen`, `estacion_id_destino`, `habilitado`) VALUES
+(1, 1, 1, 1, 2, 1),
+(2, 3, 2, 2, 1, 1),
+(7, 1, 12, 2, 5, 0),
+(8, 2, 13, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -229,17 +246,21 @@ CREATE TABLE `unidad` (
   `fecha_de_patentamiento` date DEFAULT NULL,
   `cantidad_de_asientos_cama` int(11) DEFAULT NULL,
   `cantidad_de_asientos_semicama` int(11) DEFAULT NULL,
-  `tipo_unidad_id` int(11) NOT NULL
+  `tipo_unidad_id` int(11) NOT NULL,
+  `habilitada` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `unidad`
 --
 
-INSERT INTO `unidad` (`unidad_id`, `patente`, `fecha_de_patentamiento`, `cantidad_de_asientos_cama`, `cantidad_de_asientos_semicama`, `tipo_unidad_id`) VALUES
-(1, 'ab123cm', '2020-10-10', 20, 20, 3),
-(2, 'ab456cc', '2020-10-10', 40, 0, 1),
-(3, 'ab789cs', '2020-10-10', 0, 40, 2);
+INSERT INTO `unidad` (`unidad_id`, `patente`, `fecha_de_patentamiento`, `cantidad_de_asientos_cama`, `cantidad_de_asientos_semicama`, `tipo_unidad_id`, `habilitada`) VALUES
+(1, 'ab123cm', '2020-10-10', 21, 21, 3, 1),
+(2, 'ab456cc333', '2020-10-10', 40, 4, 3, 0),
+(3, 'ab789cs', '2020-10-10', 0, 40, 2, 1),
+(4, 'zxc-567', '2020-10-01', 1, 2, 3, 1),
+(5, 'zxc-5458', '2020-10-01', 0, 5, 2, 1),
+(19, 'asu-44-qq', '2019-10-10', 1, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -408,13 +429,13 @@ ALTER TABLE `dia`
 -- AUTO_INCREMENT de la tabla `estacion`
 --
 ALTER TABLE `estacion`
-  MODIFY `estacion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `estacion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `fecha_partida`
 --
 ALTER TABLE `fecha_partida`
-  MODIFY `fecha_partida_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `fecha_partida_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `localidad`
@@ -432,13 +453,13 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT de la tabla `reparacion`
 --
 ALTER TABLE `reparacion`
-  MODIFY `reparacion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `reparacion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `servicio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `servicio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_unidad`
@@ -450,7 +471,7 @@ ALTER TABLE `tipo_unidad`
 -- AUTO_INCREMENT de la tabla `unidad`
 --
 ALTER TABLE `unidad`
-  MODIFY `unidad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `unidad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`

@@ -32,6 +32,10 @@ include("connection.php");
     return $this->detalle;
     }
 
+    function get_patente_from_unidad(){
+    return getPatenteByIdUnidad($this->idUnidad);
+    }
+
   }
 
   /*
@@ -74,15 +78,31 @@ include("connection.php");
         }
     }
 
+    function getPatenteByIdUnidad($idUnidad){
+      $sql = "SELECT  u.patente FROM `unidad` u
+              WHERE u.unidad_id = ".$idUnidad;
+      $result = executeQuery($sql);
+      if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $patente = $row["patente"];
+        }
+    } else {
+        $patente = null;
+      }
+      return $patente;
+    }
+
     function getUnidadesParaReparar(){
-      $sql = "SELECT  u.unidad_id FROM `unidad` u";
+      $sql = "SELECT  u.unidad_id, u.patente FROM `unidad` u
+              WHERE u.habilitada = 1";
     
       $result = executeQuery($sql);
     
       if ($result->num_rows > 0) {
           // output data of each row
           while($row = $result->fetch_assoc()) {
-            echo "<option value=". $row["unidad_id"].">". $row["unidad_id"]."</option>";
+            echo "<option value=". $row["unidad_id"].">". $row["patente"]."</option>";
           }
           echo "<option value=\"-1\" selected>Seleccione una opcion</option>";
       } else {
