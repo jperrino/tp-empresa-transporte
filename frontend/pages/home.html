@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <link type="text/css" rel="stylesheet" href="styles/home2.css">
-  <title>Bootstrap Example</title>
+  <title>home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -58,7 +58,15 @@
       </div>
     </a>
     <span class="nav-item nav-link">|</span>
-    <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
+    <a class="nav-item dropdown active">
+      <div class="btn-group btn-group-md">
+        <a class="nav-item nav-link active" href="listado-choferes.php">Listado de Choferes</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="chofer.php">Alta Choferes</a>
+        </div>
+      </div>
+    </a>
 
     <!--
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowna" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Travels</a>

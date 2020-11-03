@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2020 a las 04:52:06
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 03-11-2020 a las 22:33:49
+-- Versión del servidor: 10.4.13-MariaDB
+-- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chofer` (
-  `CUIL` bigint(11) NOT NULL,
+  `chofer_id` int(11) NOT NULL,
+  `cuil` bigint(11) NOT NULL,
   `apellido` varchar(50) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `domilicio` varchar(255) DEFAULT NULL,
+  `domicilio` varchar(255) DEFAULT NULL,
   `telefono_1` varchar(20) DEFAULT NULL,
   `telefono_2` varchar(20) DEFAULT NULL,
   `fecha_de_nacimiento` date DEFAULT NULL,
@@ -46,8 +47,8 @@ CREATE TABLE `chofer` (
 -- Volcado de datos para la tabla `chofer`
 --
 
-INSERT INTO `chofer` (`CUIL`, `apellido`, `nombre`, `domilicio`, `telefono_1`, `telefono_2`, `fecha_de_nacimiento`, `fecha_de_ingreso`, `baja`, `fecha_de_baja`, `motivo_de_baja`, `fecha_de_vencimiento_de_carnet`) VALUES
-(11111111111, 'test', 'test', 'test', '1111', '1111', '2000-10-10', '2000-10-10', 0, NULL, NULL, '2000-10-10');
+INSERT INTO `chofer` (`chofer_id`, `cuil`, `apellido`, `nombre`, `domicilio`, `telefono_1`, `telefono_2`, `fecha_de_nacimiento`, `fecha_de_ingreso`, `baja`, `fecha_de_baja`, `motivo_de_baja`, `fecha_de_vencimiento_de_carnet`) VALUES
+(1, 11111111111, 'test', 'test', 'test', '1111', '1111', '2000-10-10', '2000-10-10', 0, NULL, NULL, '2000-10-10');
 
 -- --------------------------------------------------------
 
@@ -329,7 +330,8 @@ INSERT INTO `viaje_chofer` (`viaje_id`, `CUIL`) VALUES
 -- Indices de la tabla `chofer`
 --
 ALTER TABLE `chofer`
-  ADD PRIMARY KEY (`CUIL`);
+  ADD PRIMARY KEY (`chofer_id`),
+  ADD UNIQUE KEY `CUIL` (`cuil`);
 
 --
 -- Indices de la tabla `dia`
@@ -418,6 +420,12 @@ ALTER TABLE `viaje_chofer`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `chofer`
+--
+ALTER TABLE `chofer`
+  MODIFY `chofer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `dia`
@@ -533,7 +541,7 @@ ALTER TABLE `viaje`
 -- Filtros para la tabla `viaje_chofer`
 --
 ALTER TABLE `viaje_chofer`
-  ADD CONSTRAINT `fk_cuil` FOREIGN KEY (`CUIL`) REFERENCES `chofer` (`CUIL`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_cuil` FOREIGN KEY (`CUIL`) REFERENCES `chofer` (`cuil`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_viaje_id` FOREIGN KEY (`viaje_id`) REFERENCES `viaje` (`viaje_id`) ON UPDATE CASCADE;
 COMMIT;
 
