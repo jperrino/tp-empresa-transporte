@@ -4,9 +4,9 @@ Trello: https://trello.com/b/q8VAMSbz/ucalp-tp-seminario-paradigmas
 
 # Windows Installation
 
-1) Download XAMP: https://www.apachefriends.org/download.html
+1) Download XAMPP: https://www.apachefriends.org/download.html
 
-2) Install Xamp (default path: "C:\XAMP")
+2) Install Xampp (default path: "C:\XAMPP")
 
 3) Download Git: https://git-scm.com/download/win
 
@@ -19,7 +19,7 @@ Trello: https://trello.com/b/q8VAMSbz/ucalp-tp-seminario-paradigmas
 5) Open: "C:\xampp\appache\conf\httpd.conf"
     - Set: DocumentRoot "C:\xampp\htdocs\main\tp-empresa-transporte\frontend\pages"
 
-6) Run XAMP:
+6) Run XAMPP:
     - Start 'Apache' Module
     - Start 'MySQL' Module
     - Click 'MySQL' > 'Admin'
