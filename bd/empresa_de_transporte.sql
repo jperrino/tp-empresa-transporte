@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2020 a las 22:33:49
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.7
+-- Tiempo de generación: 09-11-2020 a las 02:24:40
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,7 +48,9 @@ CREATE TABLE `chofer` (
 --
 
 INSERT INTO `chofer` (`chofer_id`, `cuil`, `apellido`, `nombre`, `domicilio`, `telefono_1`, `telefono_2`, `fecha_de_nacimiento`, `fecha_de_ingreso`, `baja`, `fecha_de_baja`, `motivo_de_baja`, `fecha_de_vencimiento_de_carnet`) VALUES
-(1, 11111111111, 'test', 'test', 'test', '1111', '1111', '2000-10-10', '2000-10-10', 0, NULL, NULL, '2000-10-10');
+(1, 11111111111, 'test', 'test', 'test', '1111', '1111', '2000-10-10', '2000-10-10', 0, NULL, NULL, '2000-10-10'),
+(2, 11111111112, 'test1', 'test1', 'test1', '2222', '2222', '2020-10-10', '2020-10-10', 0, NULL, NULL, '2021-10-10'),
+(3, 11111111113, 'test2', 'test2', 'test2', '3333', '3333', '2020-10-10', '2020-10-10', 0, NULL, NULL, '2020-11-11');
 
 -- --------------------------------------------------------
 
@@ -231,9 +233,9 @@ CREATE TABLE `tipo_unidad` (
 --
 
 INSERT INTO `tipo_unidad` (`tipo_unidad_id`, `descripcion`) VALUES
-(1, 'cama'),
-(2, 'semicama'),
-(3, 'mixto');
+(1, 'Cama'),
+(2, 'Semicama'),
+(3, 'Mixto');
 
 -- --------------------------------------------------------
 
@@ -300,8 +302,11 @@ CREATE TABLE `viaje` (
 --
 
 INSERT INTO `viaje` (`viaje_id`, `servicio_id`, `unidad_id`, `fecha_salida_efectiva`, `observaciones`) VALUES
-(1, 1, 2, '2000-10-10', 'test'),
-(2, 2, 1, '2020-10-10', 'test');
+(1, 1, 2, '2020-10-10', 'test'),
+(2, 2, 1, '2020-11-10', 'test'),
+(10, 2, 1, '2020-11-20', 'tassstataee'),
+(11, 8, 3, '2020-11-19', 'buenaa'),
+(12, 1, 5, '2020-11-27', '');
 
 -- --------------------------------------------------------
 
@@ -310,17 +315,26 @@ INSERT INTO `viaje` (`viaje_id`, `servicio_id`, `unidad_id`, `fecha_salida_efect
 --
 
 CREATE TABLE `viaje_chofer` (
+  `viaje_chofer_id` int(11) NOT NULL,
   `viaje_id` int(11) NOT NULL,
-  `CUIL` bigint(11) NOT NULL
+  `chofer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `viaje_chofer`
 --
 
-INSERT INTO `viaje_chofer` (`viaje_id`, `CUIL`) VALUES
-(1, 11111111111),
-(2, 11111111111);
+INSERT INTO `viaje_chofer` (`viaje_chofer_id`, `viaje_id`, `chofer_id`) VALUES
+(1, 1, 2),
+(2, 1, 3),
+(3, 2, 1),
+(4, 2, 2),
+(11, 10, 1),
+(12, 10, 3),
+(13, 11, 2),
+(14, 11, 1),
+(15, 12, 2),
+(16, 12, 3);
 
 --
 -- Índices para tablas volcadas
@@ -330,8 +344,7 @@ INSERT INTO `viaje_chofer` (`viaje_id`, `CUIL`) VALUES
 -- Indices de la tabla `chofer`
 --
 ALTER TABLE `chofer`
-  ADD PRIMARY KEY (`chofer_id`),
-  ADD UNIQUE KEY `CUIL` (`cuil`);
+  ADD PRIMARY KEY (`chofer_id`);
 
 --
 -- Indices de la tabla `dia`
@@ -414,8 +427,9 @@ ALTER TABLE `viaje`
 -- Indices de la tabla `viaje_chofer`
 --
 ALTER TABLE `viaje_chofer`
-  ADD KEY `fk_viaje_id` (`viaje_id`),
-  ADD KEY `fk_cuil` (`CUIL`);
+  ADD PRIMARY KEY (`viaje_chofer_id`),
+  ADD KEY `fk_chofer_id` (`chofer_id`),
+  ADD KEY `fk_viaje_id` (`viaje_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -425,7 +439,7 @@ ALTER TABLE `viaje_chofer`
 -- AUTO_INCREMENT de la tabla `chofer`
 --
 ALTER TABLE `chofer`
-  MODIFY `chofer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `chofer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `dia`
@@ -485,7 +499,13 @@ ALTER TABLE `unidad`
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `viaje_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `viaje_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `viaje_chofer`
+--
+ALTER TABLE `viaje_chofer`
+  MODIFY `viaje_chofer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
@@ -541,7 +561,7 @@ ALTER TABLE `viaje`
 -- Filtros para la tabla `viaje_chofer`
 --
 ALTER TABLE `viaje_chofer`
-  ADD CONSTRAINT `fk_cuil` FOREIGN KEY (`CUIL`) REFERENCES `chofer` (`cuil`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_chofer_id` FOREIGN KEY (`chofer_id`) REFERENCES `chofer` (`chofer_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_viaje_id` FOREIGN KEY (`viaje_id`) REFERENCES `viaje` (`viaje_id`) ON UPDATE CASCADE;
 COMMIT;
 

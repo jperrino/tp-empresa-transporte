@@ -1,12 +1,8 @@
 <?php
-include("config/config-reparacion.php");
+include("config/config-viaje.php");
 
 if(isset($_GET['edit'])){
-  $reparacion = getReparacion($_GET['edit']);
-  //getReparaciones($_GET['edit']);
-  /*
-  <?php echo (isset($result))?$result:'';?>
-  */
+  $viaje = getViaje($_GET['edit']);
 }
 
 ?>
@@ -89,44 +85,77 @@ if(isset($_GET['edit'])){
     <div class="container" id="main-container">
       <div class="row">
         <div class="col-md-6">
-          <h2>Reparacion</h2>
+          <h2>Viaje</h2>
           <hr>
           <form>
-            <div class="form-group" id="form-reparacion-id">
-              <label for="input-id-reparacion">ID Reparacion</label>
-              <input class="form-control" type="text" id="input-id-reparacion" placeholder="e.g.:1234" value="<?php echo (isset($_GET['edit']))?$reparacion->get_idReparacion():'';?>" disabled />
+            <div class="form-group" id="form-viaje-id">
+              <label for="input-id-viaje">ID Viaje</label>
+              <input class="form-control" type="text" id="input-id-viaje" placeholder="e.g.:1234" value="<?php echo (isset($_GET['edit']))?$viaje->get_idViaje():'';?>" disabled />
             </div>
-            <!--
             <div class="form-group">
-              <label for="input-unidad-id">ID Unidad</label>
-              <input class="form-control" type="text" id="input-unidad-id" placeholder="e.g.:1234" value="<?php echo (isset($_GET['edit']))?$reparacion->get_idUnidad():'';?>" />
-            </div>
-            -->
-            <div class="form-group">
-              <label for="select-patente-unidad">Patente</label>
-              <select class="form-control" id="select-patente-unidad">
-                <?php
-                     if(isset($_GET['edit'])){
-                       echo "<option value=".$reparacion->get_idUnidad()." selected >".$reparacion->get_patente_from_unidad()."</option>";
-                     }
-                     else if(!isset($_GET['edit'])){
-                      getUnidadesParaReparar();
-                     }
+              <label for="select-servicio">Servicio</label>
+              <select class="form-control" id="select-servicio">
+              <?php
+                  if(isset($_GET['edit'])){
+                    getServicios($viaje);
+                  }
+                  else{
+                    getServicios(null);
+                  }
                 ?>
               </select>
             </div>
             <div class="form-group">
-              <label for="input-dias-reparacion">Dias En Reparacion</label>
-              <input class="form-control" type="number" id="input-dias-reparacion" placeholder="0" value="<?php echo (isset($_GET['edit']))?$reparacion->get_tiempoReparacionDias():'';?>" />
+              <label for="select-unidad">Patente Unidad</label>
+              <select class="form-control" id="select-unidad">
+              <?php
+                  if(isset($_GET['edit'])){
+                    getUnidades($viaje);
+                  }
+                  else{
+                    getUnidades(null);
+                  }
+                ?>
+              </select>
             </div>
             <div class="form-group">
-              <label for="input-detalle">Detalle</label>
-              <textarea class="form-control" rows="5" id="input-detalle"
-              placeholder="Detalle reparacion ..."><?php echo (isset($_GET['edit']))?$reparacion->get_detalle():'';?></textarea>
+              <label for="select-chofer-1">Chofer 1 CUIL</label>
+              <select class="form-control" id="select-chofer-1">
+              <?php
+                  if(isset($_GET['edit'])){
+                    getChoferes($viaje->get_idChofer1());
+                  }
+                  else{
+                    getChoferes(null);
+                  }
+                ?>
+              </select>
             </div>
             <div class="form-group">
-              <input type="button" class="btn btn-info boton-save-reparacion" value="Guardar">
-              <input type="button" class="btn btn-danger boton-delete-reparacion" value="Borrar">
+              <label for="select-chofer-2">Chofer 2 CUIL</label>
+              <select class="form-control" id="select-chofer-2">
+              <?php
+                  if(isset($_GET['edit'])){
+                    getChoferes($viaje->get_idChofer2());
+                  }
+                  else{
+                    getChoferes(null);
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="input-fecha-partida">Fecha de Partida</label>
+              <input class="form-control" type="date" id="input-fecha-partida" value="<?php echo (isset($_GET['edit']))?$viaje->get_fechaSalidaEfectiva():'';?>" />
+            </div>
+            <div class="form-group">
+              <label for="input-observaciones">Observaciones</label>
+              <textarea class="form-control" rows="5" id="input-observaciones"
+              placeholder="Observaciones ..."><?php echo (isset($_GET['edit']))?$viaje->get_observaciones():'';?></textarea>
+            </div>
+            <div class="form-group">
+              <input type="button" class="btn btn-info boton-save-viaje" value="Guardar">
+              <input type="button" class="btn btn-danger boton-delete-viaje" value="Borrar">
             </div>
           </form>
         </div>
@@ -134,50 +163,51 @@ if(isset($_GET['edit'])){
     </div>
   </div>
   <script>
-        $(function() {
+    $(function() {
     if ( window.location.search.indexOf('edit=') != -1 ) {
-        $("#select-patente-unidad").prop('disabled', true);
-        $(".boton-save-reparacion").attr("id","update");
+      $(".boton-save-viaje").attr("id","update");
     }
     else{
-      $("#select-patente-unidad").prop('disabled', false);
-      $("#form-reparacion-id").hide();
-      $(".boton-delete-reparacion").hide();
-      $(".boton-save-reparacion").attr("id","insert");
+      $("#form-viaje-id").hide();
+      $(".boton-delete-viaje").hide();
+      $(".boton-save-viaje").attr("id","insert");
     }
     })
     $(function(){
-    $('.boton-save-reparacion').click(function(){
+    $('.boton-save-viaje').click(function(){
         var clickBtnIdAction = this.id;
-        var url = 'config/config-reparacion.php',
-        data = 
+        var url = 'config/config-viaje.php',
+        data =
         { 'action': clickBtnIdAction,
-          'id-reparacion': $('#input-id-reparacion').val(),
-          'id-unidad': $('#select-patente-unidad').val(),
-          'dias-reparacion': $('#input-dias-reparacion').val(),
-          'detalle': $('#input-detalle').val()
+          'id-viaje': $('#input-id-viaje').val(),
+          'id-servicio': parseInt($('#select-servicio').val(), 10),
+          'id-unidad': parseInt($('#select-unidad').val(), 10),
+          'id-chofer1': parseInt($('#select-chofer-1').val(), 10),
+          'id-chofer2': parseInt($('#select-chofer-2').val(), 10),
+          'fecha-salida-efectiva': $('#input-fecha-partida').val(),
+          'observaciones': $('#input-observaciones').val()
         };
         $.post(url, data, function (response) {
             if(clickBtnIdAction == 'insert'){
-              alert("Reparacion agregada satisfactoriamente");
+              alert("Viaje agregado satisfactoriamente");
             }
             else if(clickBtnIdAction == 'update'){
-              alert("Reparacion modificada satisfactoriamente");
+              alert("Viaje modificado satisfactoriamente");
             }
-            window.location.href='taller.php';
+            window.location.href='calendario-viajes.php';
         });
     });
     })
     $(function(){
-    $('.boton-delete-reparacion').click(function(){
-        var url = 'config/config-reparacion.php',
+    $('.boton-delete-viaje').click(function(){
+        var url = 'config/config-viaje.php',
         data = 
         { 'action': 'delete',
-          'id-reparacion': $('#input-id-reparacion').val()
+          'id-viaje': $('#input-id-viaje').val()
         };
         $.post(url, data, function (response) {
-            alert("Reparacion borrada satisfactoriamente");
-            window.location.href='taller.php';
+            alert("Viaje borrado satisfactoriamente");
+            window.location.href='calendario-viajes.php';
         });
     });
     })

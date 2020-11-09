@@ -46,10 +46,10 @@ include("config/config-taller.php");
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="calendario-viajes.html">Calendario de Viajes</a>
+            <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="viaje.html">Alta Viajes</a>
+              <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
             </div>
           </div>
         </a>
@@ -64,7 +64,16 @@ include("config/config-taller.php");
           </div>
         </a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
+        <a class="nav-item dropdown active">
+                    <div class="btn-group btn-group-md">
+                        <a class="nav-item nav-link active" href="listado-choferes.php">Listado de Choferes</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
+                            data-toggle="dropdown"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="chofer.php">Alta Choferes</a>
+                        </div>
+                    </div>
+                </a>
       </div>
       <div>
         <a href="login.html" class="btn btn-primary">Logout</a>

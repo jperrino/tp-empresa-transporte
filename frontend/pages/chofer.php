@@ -43,27 +43,35 @@ if ($isEdit) {
                 <span class="nav-item nav-link">|</span>
                 <a class="nav-item dropdown active">
                     <div class="btn-group btn-group-md">
-                        <a class="nav-item nav-link active" href="listado-servicios.html">Listado de Servicios</a>
+                        <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
                             data-toggle="dropdown"></a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="servicio.html">Alta Servicios</a>
+                            <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
                         </div>
                     </div>
                 </a>
                 <span class="nav-item nav-link">|</span>
                 <a class="nav-item dropdown active">
                     <div class="btn-group btn-group-md">
-                        <a class="nav-item nav-link active" href="calendario-viajes.html">Calendario de Viajes</a>
+                        <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
                             data-toggle="dropdown"></a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="viaje.html">Alta Viajes</a>
+                            <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
                         </div>
                     </div>
                 </a>
                 <span class="nav-item nav-link">|</span>
-                <a class="nav-item nav-link active" href="estacion.html">Alta Estaciones</a>
+                <a class="nav-item dropdown active">
+                    <div class="btn-group btn-group-md">
+                        <a class="nav-item nav-link active" href="estacion.php">Estaciones</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="altaEstaciones.php">Alta Estacion</a>
+                        </div>
+                    </div>
+                </a>
                 <span class="nav-item nav-link">|</span>
                 <a class="nav-item dropdown active">
                     <div class="btn-group btn-group-md">
