@@ -44,10 +44,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
+            <a class="nav-item nav-link active" href="calendario-viajes.html">Calendario de Viajes</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
+              <a class="dropdown-item" href="viaje.html">Alta Viajes</a>
             </div>
           </div>
         </a>
@@ -62,19 +62,10 @@
           </div>
         </a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item dropdown active">
-                    <div class="btn-group btn-group-md">
-                        <a class="nav-item nav-link active" href="listado-choferes.php">Listado de Choferes</a>
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
-                            data-toggle="dropdown"></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="chofer.php">Alta Choferes</a>
-                        </div>
-                    </div>
-                </a>
+        <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
       </div>
       <div>
-        <a href="login.html" class="btn btn-primary">Logout</a>
+        <a href="login.php" class="btn btn-primary">Logout</a>
       </div>
     </nav>
 
@@ -84,13 +75,17 @@
           <h2>Estacion</h2>
           <hr>
           <form>
-            <div class="form-group">
-              <label for="input-id-estacion">Estacion</label>
-              <input class="form-control" type="text" id="input-id-estacion" placeholder="estacion" />
-            </div>
-            <div class="form-group">
-                <label for="input-localidad">Localidad</label>
-                <input class="form-control" type="text" id="input-localidad" placeholder="localidad" />
+              <div class="dropdown">
+              <label for="localidad">Selecciones una Localidad: </label>
+                <select value="localidad" id="input-localidad">                  
+                  <option class='dropdown-item' value="Localidad">Localidad</option>
+                    <?php getLocalidad(); ?>                
+                </select>
+                <br></br>
+              </div>
+              <div class="form-group">
+                <label for="input-estacion">Estacion</label>
+                <input class="form-control" type="text" id="input-estacion" placeholder="e.g.:Retiro" />
               </div>
               <div class="form-group">
                 <label for="input-direccion">Direccion</label>
@@ -102,7 +97,6 @@
               </div>
             <div class="form-group">
               <input type="button" class="btn btn-info boton-save-estacion" value="Guardar">
-             <!-- <a class="btn btn-danger">Borrar</a>-->
             </div>
           </form>
         </div>
@@ -115,18 +109,17 @@
   $(function(){    
     $('.boton-save-estacion').click(function(){
      var btnAction = 'insert';
-     var url = 'config/config-estacion.php',
+     var url = 'config/config-estacion.php',     
      data = {
        'action': btnAction,
-       'id-estacion' : $('#input-id-estacion').val(),
+       'id-est' : $('#input-estacion').val(),
        'id-loc' : $('#input-localidad').val(),
        'dir' : $('#input-direccion').val(),
        'tel' :$('#input-telefono').val()
      };     
      $.post(url, data, function(response) {
-       alert("Estacion agregada satisfactoriamente");
        windows.location.href='estacion.php';
-    });
+           });
    });
    })
   </script>

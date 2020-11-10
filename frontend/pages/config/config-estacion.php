@@ -15,31 +15,88 @@ class Estacion {
     }
     
 }
-
-if(isset($_POST['action'])){
-    insertEstacion($_POST['id-estacion'],$_POST['id-loc'],$_POST['dir'],$_POST['tel']);
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'insert':
+            insertEstacion($_POST['id-est'],$_POST['id-loc'],$_POST['dir'],$_POST['tel']);
+        break;
+        case 'update':
+            actualizarEstacion($_POST['id'],$_POST['id-loc'],$_POST['id-est'],$_POST['dir'],$_POST['tel']);
+        break;
+    }
 }
     function getEstacion() {
-        $sql = "SELECT * FROM `estacion`";
+        $sql = "SELECT * FROM estacion e inner join localidad l on (e.localidad_id = l.localidad_id)";        
+        $result = executeQuery($sql);     
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {  
+                $ok= true;
+                $false2 = false;
+                echo "<tr>";
+                echo "<td>". $row["nombre"]."</td>";
+                echo "<td>". $row["detalle"]."</td>";
+                echo "<td>". $row["direccion"]."</td>";
+                echo "<td>". $row["telefono"]."</td>";
+                echo "<td>";
+                echo "<input type='button' class='btn btn-info boton-edit-unidad' id=".$row["estacion_id"]." value='Editar' href='editarEstacion.php'>";
+                echo "</tr>";
+            }
+        }
+    }
+    
+    function getLocalidad(){
+        $sql = "SELECT * FROM `localidad`";
         $result = executeQuery($sql);
         if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-           // $estacion = new Estacion($row["estacion_id"], $row["localidad_id"],  $row["direccion"],  $row["telefono"]);
-            echo "<tr>";
-            echo "<td>". $row["estacion_id"]."</td>";
-            echo "<td>". $row["localidad_id"]."</td>";
-            echo "<td>". $row["direccion"]."</td>";
-            echo "<td>". $row["telefono"]."</td>";
-            echo "</tr>";
+            while($row = $result->fetch_assoc()) {
+                echo "<option class='dropdown-item' value=".$row["localidad_id"].">".$row["detalle"]."</option>";
             }
         }
     }
 
-    function insertEstacion($idestacion,$idlocalidad,$iddireccion,$idtelefono){
-        $sql = "INSERT INTO `estacion` (`estacion_id`, `localidad_id`, `direccion`, `telefono`) VALUES ('".$idestacion."', '".$idlocalidad."', '".$iddireccion."', '".$idtelefono."')";
+    function insertEstacion($idnombre,$idlocalidad,$iddireccion,$idtelefono){
+        $sql = "INSERT INTO `estacion` (`nombre`, `localidad_id`, `direccion`, `telefono`) VALUES ('".$idnombre."','".$idlocalidad."','".$iddireccion."','".$idtelefono."')";
         $result = executeQuery($sql);
         exit;
+    }
+
+    function actualizarEstacion($ID,$idlocalidad,$idnombre,$iddireccion,$idtelefono){
+        $sql = "UPDATE `estacion` SET `nombre` = '".$idnombre."', `direccion` = '".$iddireccion."', `telefono` = '".$idtelefono."' WHERE `estacion_id` = ".$ID;
+        $result = executeQuery($sql);
+        exit;
+    }
+
+    function getDatosEstacion($idEstacion) {
+        $sql = "SELECT * FROM estacion e inner join localidad l on (e.localidad_id = l.localidad_id) WHERE `estacion_id` = ".$idEstacion;      
+        $result = executeQuery($sql);
+        if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<input class='form-control' type='text' id='input-id' value='".$idEstacion."' hidden />";
+            echo "<div class='dropdown'>";
+            echo "<label for='localidad'>Selecciones una Localidad: </label>";
+            echo "<select value='localidad' id='input-localidad'>";                  
+            echo "<option class='dropdown-item' value=".$row["detalle"].">".$row["detalle"]."</option>";   
+            getLocalidad();            
+            echo "</select>";
+            echo "<br></br>";
+            echo "<div class='form-group'>";
+            echo "<label for='input-estacion'>Estacion</label>";
+            echo "<input class='form-control' type='text' id='input-estacion' value='".$row["nombre"]."' />";
+            echo "</div>";
+            echo "</div>";
+            echo "<div class='form-group'>";
+            echo "<label for='input-direccion'>Direccion</label>";
+            echo "<input class='form-control' type='text' id='input-direccion' value=".$row["direccion"]." />";
+            echo "</div>";
+            echo "<div class='form-group'>";
+            echo "<label for='input-telefono'>Telefono</label>";
+            echo "<input class='form-control' type='text' id='input-telefono' value=".$row["telefono"]." />";
+            echo "</div>";
+            echo "<div class='form-group'>";
+            echo "<input type='button' class='btn btn-info boton-save-estacion' value='Guardar'>";
+            echo "</div>";
+            }
+        }
     }
 
 ?>

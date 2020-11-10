@@ -44,10 +44,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
+            <a class="nav-item nav-link active" href="calendario-viajes.html">Calendario de Viajes</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
+              <a class="dropdown-item" href="viaje.html">Alta Viajes</a>
             </div>
           </div>
         </a>
@@ -62,23 +62,14 @@
           </div>
         </a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item dropdown active">
-                    <div class="btn-group btn-group-md">
-                        <a class="nav-item nav-link active" href="listado-choferes.php">Listado de Choferes</a>
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
-                            data-toggle="dropdown"></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="chofer.php">Alta Choferes</a>
-                        </div>
-                    </div>
-                </a>
+        <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
       </div>
       <div>
-        <a href="login.html" class="btn btn-primary">Logout</a>
+        <a href="login.php" class="btn btn-primary">Logout</a>
       </div>
     </nav>
     <div class="container" id="main-container">
-    <div class="row" id="reparacion-container">
+    <div class="row" id="estacion-container">
           <div class="col-md-12">
             <h2>Estaciones</h2>
             <hr>
@@ -89,6 +80,7 @@
                       <td>Localidad</td>
                       <td>Direccion</td>
                       <td>Telefono</td>
+                      <td>Accion</td>
                   </tr>
               </thead>
               <tbody>
@@ -100,3 +92,25 @@
           </div>
     </div>
   </div>
+  <script>
+    $(".boton-edit-unidad").on("click", function() {
+    window.location.href = "editarEstacion.php?edit=" + this.id;
+    })
+/*
+  $(function(){    
+    $('.boton-edit-unidad').click(function(){
+     var btnAction = 'insert';
+     var url = 'config/config-estacion.php',     
+     data = {
+       'action': btnAction,
+       'id-loc' : $('#input-localidad').val(),
+       'dir' : $('#input-direccion').val(),
+       'tel' :$('#input-telefono').val()
+     };     
+     $.post(url, data, function(response) {
+      alert("Estacion agregada satisfactoriamente");
+       //windows.location.href='estacion.php';alert("Estacion agregada satisfactoriamente");
+    });
+   });
+   })*/
+  </script>

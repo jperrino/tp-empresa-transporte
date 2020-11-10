@@ -79,7 +79,7 @@ include("config/config-chofer.php");
                 </a>
             </div>
             <div>
-                <a href="login.html" class="btn btn-primary">Logout</a>
+                <a href="login.php" class="btn btn-primary">Logout</a>
             </div>
         </nav>
         <div class="container" id="main-container">
