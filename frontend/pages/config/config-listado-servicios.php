@@ -18,7 +18,6 @@ function getDiasPartida($diaId){
   $result = executeQuery($sql);
 
   if ($result->num_rows > 0) {
-      // output data of each row
       if(is_numeric($diaId)){
         while($row = $result->fetch_assoc()) {
           if($diaId == $row["dia_id"]){
@@ -28,7 +27,6 @@ function getDiasPartida($diaId){
             echo "<option value=".$row["dia_id"].">".$row["descripcion"]."</option>";
           }
         }
-        //con javascript no deberia dejar que llegue un -1
         if($diaId == -1){
           $default = "selected";
         }
@@ -62,9 +60,6 @@ function getServiciosByDia($diaId){
                   s.`habilitado`
           FROM `servicio` s
           JOIN `fecha_partida` f ON s.`fecha_partida_id` = f.`fecha_partida_id`
-          /*
-          JOIN `tipo_unidad` t ON t.`tipo_unidad_id` = s.`tipo_unidad_id`
-          */
           JOIN `estacion` e_origen ON e_origen.`estacion_id` = s.`estacion_id_origen`
           JOIN `estacion` e_destino ON e_destino.`estacion_id` = s.`estacion_id_destino` "
           . $condition.
@@ -73,20 +68,17 @@ function getServiciosByDia($diaId){
   $result = executeQuery($sql);
 
   if ($result->num_rows > 0) {
-      // output data of each row
       while($row = $result->fetch_assoc()) {
         if(intval($row["habilitado"]) == 0){
           echo "<tr class=\"table-danger\">";
         }
         else echo "<tr>";
-        //echo "<td>". $row["servicio_id"]."</td>";
         switch($row["tipo_unidad_id"])
         {
           case 1: echo "<td> Cama </td>"; break;
           case 2: echo "<td> Semicama </td>"; break;
           case 3: echo "<td> Mixto </td>"; break;
         }
-        //echo "<td>". $row["tipo_unidad_id"]."</td>";
         echo "<td>". $row["e_nombre_origen"]."</td>";
         echo "<td>". $row["e_nombre_destino"]."</td>";
         echo "<td>". $row["hora_de_partida"]."</td>";

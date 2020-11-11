@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-11-2020 a las 02:24:40
+-- Tiempo de generación: 10-11-2020 a las 23:33:50
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -98,7 +98,7 @@ CREATE TABLE `estacion` (
 INSERT INTO `estacion` (`estacion_id`, `localidad_id`, `nombre`, `direccion`, `telefono`, `habilitada`) VALUES
 (1, 1, 'Terminal de Omnibus La Plata', 'calle 4 453', '2214273198', 1),
 (2, 2, 'Retiro', 'av. Antártida Argentina', '1143100700', 1),
-(5, 1, 'dsagdhast', 'asfg 1234', '11111111111111', 1);
+(5, 1, 'dsagdhast', 'asfg 1234567', '11111111111111', 1);
 
 -- --------------------------------------------------------
 
@@ -281,7 +281,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`nombre_usuario`, `contrasena`) VALUES
-('admin', '$2a$10$cpRXOnqomoS2hQy4IIeege4F4BZb.qbbAGicdQv/XIhHfWTav93bO');
+('admin', '$2a$10$cpRXOnqomoS2hQy4IIeege4F4BZb.qbbAGicdQv/XIhHfWTav93bO'),
+('test', 'test');
 
 -- --------------------------------------------------------
 

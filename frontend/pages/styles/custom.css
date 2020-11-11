@@ -1,0 +1,7 @@
+.form-inline > * {
+    margin:5px;
+ }
+
+ .lbl-fecha-calendario {
+    padding-right:10px;
+ }

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link type="text/css" rel="stylesheet" href="styles/home2.css">
-  <title>home</title>
+  <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,9 +12,11 @@
 
 <div class="container" id="containerr">
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand">LOGO</a>
+<a class="navbar-brand">
+      <img src="imgs/logo_thumb.png">
+      </a>
   <div class="navbar-nav mr-auto">
-    <a class="nav-item nav-link active" href="home.html">Home</a>
+    <a class="nav-item nav-link active" href="home.php">Home</a>
     <span class="nav-item nav-link">|</span>
     <a class="nav-item dropdown active">
       <div class="btn-group btn-group-md">
@@ -67,52 +68,107 @@
         </div>
       </div>
     </a>
-
-    <!--
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowna" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Travels</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="Travels.html">Busses</a>
-          <a class="dropdown-item" href="Busses.html">Travels</a>
-          <a class="dropdown-item" href="Drivers.html">Drivers</a>
-          <a class="dropdown-item" href="Services.html">Services</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="Home.html">Home</a>
-        </div>
-    -->
-    
-    <!--
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Viajes
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="Travels.html">Unidades</a>
-        <a class="dropdown-item" href="Busses.html">Viajes</a>
-        <a class="dropdown-item" href="Drivers.html">Choferes</a>
-        <a class="dropdown-item" href="Services.html">Servicios</a>
-      </div>
-    </li>
-    -->
   </div>
   <div>
-      <a href="login.php" class="btn btn-primary">Logout</a>
+      <a href="login.php" class="btn btn-primary">Salir</a>
   </div>
 </nav>
-<table id="main-container">
-        <tr>
-          <td id="home-container">
-            <h2 id="home-title">Titulo de bienvenida</h2>
-                <p id="home-paragraph">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Vivamus ullamcorper ac lorem in imperdiet. Phasellus quam leo, 
-                  pellentesque non maximus vitae, finibus ac lorem. Vivamus vitae 
-                  pretium ligula. Morbi eleifend mauris a eros tristique, 
-                  ut pulvinar orci porttitor. Vestibulum mattis purus a interdum porta. 
-                  Nam finibus nisl a convallis sollicitudin. 
-                  Donec tortor lectus, mollis at maximus a, 
-                  aliquam id augue.
-                </p>
-          </td>
-        </tr>
-</table>
+<div class="container" id="main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Manual del Sitio</h2>
+        <hr>
+        <div class="jumbotron">
+          <h4>Unidades</h4>
+          <ul>
+            <li>
+              <u>Listado de Unidades (y sus reparaciones):</u> dirijase a Taller.
+            </li>
+            <li>
+            <u>Modificacion:</u> seleccione Editar dentro de Taller.
+            </li>
+            <li>
+            <u>Baja:</u> seleccione Deshabilitar dentro de la Modificacion de Unidades.
+            </li>
+            <li>
+            <u>Alta:</u> dentro del menu Taller, seleccione Alta Unidadades.
+            </li>
+          </ul>
+          <h4>Reparaciones</h4>
+          <ul>
+            <li>
+            <u>Listado de Reparaciones por Unidad:</u> dentro de la Modificacion de Unidades,
+              el listado de Reparaciones asignadas a la Unidad se muestra en la seccion inferior.
+            </li>
+            <li>
+            <u>Modificacion:</u> dentro del listado de Reparaciones por Unidad seleccione Editar.
+            </li>
+            <li>
+            <u>Baja:</u> seleccione Borrar dentro de la Modificacion de Reparaciones.
+            </li>
+            <li>
+            <u>Alta:</u> dentro del menu Taller, seleccione Alta Reparaciones.
+            </li>
+          </ul>
+          <h4>Servicios</h4>
+          <ul>
+            <li>
+            <u>Listado de Servicios:</u> dirijase a Listado de Servicios.
+            </li>
+            <li>
+            <u>Modificacion:</u> seleccione Editar dentro del Listado de Servicios.
+            </li>
+            <li>
+            <u>Baja:</u> seleccione Deshabilitar dentro de la Modificacion de Servicios.
+            </li>
+            <li>
+            <u>Alta:</u> dentro del menu Listado de Servicios, seleccione Alta Servicios.
+            </li>
+          </ul>
+          <h4>Viajes</h4>
+          <ul>
+            <li>
+            <u>Listado de Viajes:</u> dirijase a Calendario de Viajes.
+            </li>
+            <li>
+            <u>Modificacion:</u> seleccione Editar dentro del Calendario de Viajes.
+            </li>
+            <li>
+            <u>Baja:</u> seleccione Borrar dentro de la Modificacion de Viajes.
+            </li>
+            <li>
+            <u>Alta:</u> dentro del menu Calendario de Viajes, seleccione Alta Viajes.
+            </li>
+          </ul>
+          <h4>Estaciones</h4>
+          <ul>
+            <li>
+            <u>Listado de Estaciones:</u> dirijase a Estaciones.
+            </li>
+            <li>
+            <u>Modificacion:</u> seleccione Editar dentro de Estaciones.
+            </li>
+            <li>
+            <u>Alta:</u> dentro del menu Estaciones, seleccione Alta Estacion.
+            </li>
+          </ul>
+          <h4>Choferes</h4>
+          <ul>
+            <li>
+            <u>Listado de Choferes:</u> dirijase a Listado de Choferes.
+            </li>
+            <li>
+            <u>Modificacion:</u> seleccione Editar dentro del Listado de Choferes.
+            </li>
+            <li>
+            <u>Baja:</u> seleccione Borrar dentro de la Modificacion de Choferes.
+            </li>
+            <li>
+            <u>Alta:</u> dentro del menu Listado de Choferes, seleccione Alta Choferes.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,8 +10,7 @@ if(isset($_GET['edit'])){
 <html lang="en">
 
 <head>
-  <link type="text/css" rel="stylesheet" href="styles/home2.css">
-  <title>Bootstrap Example</title>
+  <title>Servicio</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -22,9 +21,11 @@ if(isset($_GET['edit'])){
 <body>
   <div class="container" id="containerr">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand">LOGO</a>
+    <a class="navbar-brand">
+      <img src="imgs/logo_thumb.png">
+      </a>
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="home.html">Home</a>
+        <a class="nav-item nav-link active" href="home.php">Home</a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
@@ -79,7 +80,7 @@ if(isset($_GET['edit'])){
                 </a>
       </div>
       <div>
-        <a href="login.php" class="btn btn-primary">Logout</a>
+        <a href="login.php" class="btn btn-primary">Salir</a>
       </div>
     </nav>
     <div class="container" id="main-container">

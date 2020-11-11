@@ -12,7 +12,6 @@ include("connection.php");
     public $habilitada;
 
     function __construct($idUnidad, $patente, $fechaPatentamiento, $asientosCama, $asientosSemi, $tipoUnidad, $habilitada) {
-       //$this->name = $name; 
         $this->idUnidad = $idUnidad;
         $this->patente = $patente;
         $this->fechaPatentamiento = $fechaPatentamiento;
@@ -51,13 +50,6 @@ include("connection.php");
     }
 
   }
-
-  /*
-    if(isset($_GET['edit'])){
-      getUnidad($_GET['edit']);
-      //getReparaciones($_GET['edit']);
-    }
-    */
 
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
@@ -109,14 +101,11 @@ include("connection.php");
                             u.`cantidad_de_asientos_semicama`, 
                             u.`tipo_unidad_id`,
                             u.`habilitada` 
-              /*t.`descripcion` */
                     FROM `unidad` u
-              /*JOIN `tipo_unidad` t ON u.`tipo_unidad_id` = t.`tipo_unidad_id`*/
                     WHERE u.`unidad_id` = ".$idUnidad;
 
       $result = executeQuery($sql);
         if ($result->num_rows > 0) {
-      // output data of each row
       while($row = $result->fetch_assoc()) {
         $unidad = new Unidad($row["unidad_id"], $row["patente"],  $row["fecha_de_patentamiento"],  $row["cantidad_de_asientos_cama"],  $row["cantidad_de_asientos_semicama"],  $row["tipo_unidad_id"], $row["habilitada"]);
         }
@@ -135,10 +124,8 @@ include("connection.php");
 
       $result = executeQuery($sql);
         if ($result->num_rows > 0) {
-      // output data of each row
       while($row = $result->fetch_assoc()) {
         echo "<tr>";
-        //echo "<td>". $row["reparacion_id"]."</td>";
         echo "<td>". $row["tiempo_reparacion_dias"]."</td>";
         echo "<td>". $row["detalle"]."</td>";
         echo "<td>

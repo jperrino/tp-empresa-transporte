@@ -9,7 +9,6 @@ include("connection.php");
     public $detalle;
 
     function __construct($idReparacion, $idUnidad, $tiempoReparacionDias, $detalle) {
-       //$this->name = $name; 
         $this->idReparacion = $idReparacion;
         $this->idUnidad = $idUnidad;
         $this->tiempoReparacionDias = $tiempoReparacionDias;
@@ -38,13 +37,6 @@ include("connection.php");
 
   }
 
-  /*
-    if(isset($_GET['edit'])){
-      getUnidad($_GET['edit']);
-      //getReparaciones($_GET['edit']);
-    }
-    */
-
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'insert':
@@ -59,12 +51,10 @@ include("connection.php");
                   break;
             case 'update':
                   if (isset($_POST['id-reparacion']) && 
-                        //isset($_POST['id-unidad']) && 
                         isset($_POST['dias-reparacion']) && 
                         isset($_POST['detalle']))
                         {
                               updateReparacion($_POST['id-reparacion'],
-                                    //$_POST['id-unidad'], 
                                     $_POST['dias-reparacion'], 
                                     $_POST['detalle']);
                         }
@@ -83,7 +73,6 @@ include("connection.php");
               WHERE u.unidad_id = ".$idUnidad;
       $result = executeQuery($sql);
       if ($result->num_rows > 0) {
-        // output data of each row
         while($row = $result->fetch_assoc()) {
           $patente = $row["patente"];
         }
@@ -100,7 +89,6 @@ include("connection.php");
       $result = executeQuery($sql);
     
       if ($result->num_rows > 0) {
-          // output data of each row
           while($row = $result->fetch_assoc()) {
             echo "<option value=". $row["unidad_id"].">". $row["patente"]."</option>";
           }
@@ -115,7 +103,6 @@ include("connection.php");
 
       $result = executeQuery($sql);
         if ($result->num_rows > 0) {
-      // output data of each row
       while($row = $result->fetch_assoc()) {
         $reparacion = new Reparacion($row["reparacion_id"], $row["unidad_id"],  $row["tiempo_reparacion_dias"],  $row["detalle"]);
         }

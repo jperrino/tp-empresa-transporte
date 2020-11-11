@@ -5,7 +5,6 @@ include("config/config-chofer.php");
 <html lang="en">
 
 <head>
-    <link type="text/css" rel="stylesheet" href="styles/home2.css">
     <title>Listado de Choferes</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,9 +17,11 @@ include("config/config-chofer.php");
 <body>
     <div class="container" id="containerr">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand">LOGO</a>
+        <a class="navbar-brand">
+            <img src="imgs/logo_thumb.png">
+        </a>
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link active" href="home.html">Home</a>
+                <a class="nav-item nav-link active" href="home.php">Home</a>
                 <span class="nav-item nav-link">|</span>
                 <a class="nav-item dropdown active">
                     <div class="btn-group btn-group-md">
@@ -79,7 +80,7 @@ include("config/config-chofer.php");
                 </a>
             </div>
             <div>
-                <a href="login.php" class="btn btn-primary">Logout</a>
+                <a href="login.php" class="btn btn-primary">Salir</a>
             </div>
         </nav>
         <div class="container" id="main-container">
@@ -115,20 +116,5 @@ include("config/config-chofer.php");
     $(".boton-edit-chofer").on("click", function() {
         window.location.href = "chofer.php?edit=" + this.id;
     })
-    /*
-    $(function(){
-    $('.boton-delete-unidad').click(function(){
-        var url = 'config/config-unidad.php',
-        data = 
-        { 'action': 'delete',
-          'id-unidad': $('#input-id-unidad').val()
-        };
-        $.post(url, data, function (response) {
-            alert("Unidad borrada satisfactoriamente");
-            window.location.href='taller.php';
-        });
-    });
-    })
-    */
     </script>
 </body>

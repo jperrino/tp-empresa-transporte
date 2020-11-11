@@ -1,14 +1,11 @@
 <?php
 include("config/config-taller.php");
-//include("config/config-unidad.php");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <link type="text/css" rel="stylesheet" href="styles/home2.css">
-  <title>Bootstrap Example</title>
+  <title>Taller</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -19,9 +16,11 @@ include("config/config-taller.php");
 <body>
   <div class="container" id="containerr">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand">LOGO</a>
+    <a class="navbar-brand">
+      <img src="imgs/logo_thumb.png">
+      </a>
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="home.html">Home</a>
+        <a class="nav-item nav-link active" href="home.php">Home</a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
@@ -76,7 +75,7 @@ include("config/config-taller.php");
                 </a>
       </div>
       <div>
-        <a href="login.php" class="btn btn-primary">Logout</a>
+        <a href="login.php" class="btn btn-primary">Salir</a>
       </div>
     </nav>
     <div class="container" id="main-container">
@@ -87,7 +86,6 @@ include("config/config-taller.php");
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <!-- <td>Unidad</td> -->
                 <td>Patente</td>
                 <td>Fecha de patentamiento</td>
                 <td>Asientos cama</td>
@@ -111,20 +109,5 @@ include("config/config-taller.php");
     $(".boton-edit-unidad").on("click", function() {
     window.location.href = "unidad.php?edit=" + this.id;
     })
-    /*
-    $(function(){
-    $('.boton-delete-unidad').click(function(){
-        var url = 'config/config-unidad.php',
-        data = 
-        { 'action': 'delete',
-          'id-unidad': $('#input-id-unidad').val()
-        };
-        $.post(url, data, function (response) {
-            alert("Unidad borrada satisfactoriamente");
-            window.location.href='taller.php';
-        });
-    });
-    })
-    */
   </script>
 </body>

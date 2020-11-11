@@ -108,7 +108,6 @@ function getServicios($viaje){
     $result = executeQuery($sql);
   
     if ($result->num_rows > 0) {
-        // output data of each row
         if($viaje != null){
           while($row = $result->fetch_assoc()) {
             if($viaje->get_idServicio() == $row["servicio_id"]){
@@ -118,12 +117,6 @@ function getServicios($viaje){
               echo "<option value=".$row["servicio_id"].">".$row["servicio"]."</option>";
             }
           }
-          /*
-          //con javascript no deberia dejar que llegue un -1
-          if($diaId == -1){
-            $default = "selected";
-          }
-          */
           echo "<option value=\"-1\">Seleccione una opcion</option>";
         }
         else{
@@ -146,7 +139,6 @@ function getServicios($viaje){
     $result = executeQuery($sql);
   
     if ($result->num_rows > 0) {
-        // output data of each row
         if($viaje != null){
           while($row = $result->fetch_assoc()) {
             if($viaje->get_idUnidad() == $row["unidad_id"]){
@@ -156,12 +148,6 @@ function getServicios($viaje){
               echo "<option value=".$row["unidad_id"].">".$row["patente"]."</option>";
             }
           }
-          /*
-          //con javascript no deberia dejar que llegue un -1
-          if($diaId == -1){
-            $default = "selected";
-          }
-          */
           echo "<option value=\"-1\">Seleccione una opcion</option>";
         }
         else{
@@ -184,7 +170,6 @@ function getServicios($viaje){
     $result = executeQuery($sql);
   
     if ($result->num_rows > 0) {
-        // output data of each row
         if($chofer_id != null){
           while($row = $result->fetch_assoc()) {
             if($chofer_id == $row["chofer_id"]){
@@ -194,12 +179,6 @@ function getServicios($viaje){
               echo "<option value=".$row["chofer_id"].">".$row["cuil"]."</option>";
             }
           }
-          /*
-          //con javascript no deberia dejar que llegue un -1
-          if($diaId == -1){
-            $default = "selected";
-          }
-          */
           echo "<option value=\"-1\">Seleccione una opcion</option>";
         }
         else{
@@ -234,9 +213,7 @@ function getViaje($idViaje) {
 
 $result = executeQuery($sql);
 if ($result->num_rows > 0) {
-// output data of each row
 while($row = $result->fetch_assoc()) {
-    //$choferres_cuil = explode(",", $row["choferes_cuil"]);
     $choferres_id = explode(",", $row["choferes_id"]);
 $viaje = new Viaje($row["viaje_id"], $row["servicio_id"],  $row["unidad_id"],  $choferres_id[0],  $choferres_id[1],  $row["fecha_salida_efectiva"], $row["observaciones"]);
 }
@@ -260,7 +237,6 @@ function getMaxViaje(){
     $sql = "SELECT MAX(v.`viaje_id`) as `last_viaje_id` FROM `viaje` v;";
     $result = executeQuery($sql);
     if ($result->num_rows > 0) {
-        // output data of each row
         while($row = $result->fetch_assoc()) {
           $lastViajeId = $row["last_viaje_id"];
         }
@@ -303,7 +279,6 @@ function getChoferesByViaje($idViaje){
             WHERE v.`viaje_id` = ".$idViaje." GROUP BY v.`viaje_id`;";
     $result = executeQuery($sql);
     if ($result->num_rows > 0) {
-        // output data of each row
         while($row = $result->fetch_assoc()) {
           $choferesId = $row["choferes_id"];
         }

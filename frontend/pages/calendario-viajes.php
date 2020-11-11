@@ -6,8 +6,8 @@ include("config/config-calendario-viajes.php");
 <html lang="en">
 
 <head>
-  <link type="text/css" rel="stylesheet" href="styles/home2.css">
-  <title>Bootstrap Example</title>
+  <link type="text/css" rel="stylesheet" href="styles/custom.css">
+  <title>Calendario de viajes</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,9 +18,11 @@ include("config/config-calendario-viajes.php");
 <body>
   <div class="container" id="containerr">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand">LOGO</a>
+    <a class="navbar-brand">
+      <img src="imgs/logo_thumb.png">
+      </a>
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="home.html">Home</a>
+        <a class="nav-item nav-link active" href="home.php">Home</a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
@@ -75,7 +77,7 @@ include("config/config-calendario-viajes.php");
                 </a>
       </div>
       <div>
-        <a href="login.php" class="btn btn-primary">Logout</a>
+        <a href="login.php" class="btn btn-primary">Salir</a>
       </div>
     </nav>
     <div class="container" id="main-container">
@@ -87,11 +89,11 @@ include("config/config-calendario-viajes.php");
           <form class="form-inline">
             <div class="form-group">
               <label for="input-fecha-salida-i" class="lbl-fecha-calendario">Inicio</label>
-              <input class="form-control" type="date" id="input-fecha-salida-i" />
+              <input class="form-control" type="date" id="input-fecha-salida-i" value="<?php echo (isset($_GET['f_salida_i']))?$_GET['f_salida_i']:'';?>" />
             </div>
             <div class="form-group">
               <label for="input-fecha-salifa-f" class="lbl-fecha-calendario">Fin</label>
-              <input class="form-control" type="date" id="input-fecha-salida-f" />
+              <input class="form-control" type="date" id="input-fecha-salida-f" value="<?php echo (isset($_GET['f_salida_f']))?$_GET['f_salida_f']:'';?>" />
             </div>
             <div class="form-group">
               <a class="btn btn-info" id="get-viajes-by-fechas">Buscar</a>

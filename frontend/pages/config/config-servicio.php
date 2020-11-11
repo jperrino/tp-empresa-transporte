@@ -12,7 +12,6 @@ include("connection.php");
     public $habilitado;
 
     function __construct($idServicio, $tipoUnidad, $diaPartida, $horaPartida, $estacionOrigen, $estacionDestino, $habilitado) {
-       //$this->name = $name; 
         $this->idServicio = $idServicio;
         $this->tipoUnidad = $tipoUnidad;
         $this->diaPartida = $diaPartida;
@@ -51,13 +50,6 @@ include("connection.php");
     }
 
   }
-
-  /*
-    if(isset($_GET['edit'])){
-      getUnidad($_GET['edit']);
-      //getReparaciones($_GET['edit']);
-    }
-    */
 
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
@@ -111,16 +103,12 @@ include("connection.php");
                             s.`habilitado`  
                     FROM `servicio` s
                     JOIN `fecha_partida` f ON s.`fecha_partida_id` = f.`fecha_partida_id`
-                    /*
-                    JOIN `tipo_unidad` t ON t.`tipo_unidad_id` = s.`tipo_unidad_id`
-                    */
                     JOIN `estacion` e_origen ON e_origen.`estacion_id` = s.`estacion_id_origen`
                     JOIN `estacion` e_destino ON e_destino.`estacion_id` = s.`estacion_id_destino`
                     WHERE s.`servicio_id` = ".$idServicio;
 
       $result = executeQuery($sql);
         if ($result->num_rows > 0) {
-      // output data of each row
       while($row = $result->fetch_assoc()) {
         $servicio = new Servicio($row["servicio_id"], $row["tipo_unidad_id"],  $row["dia_id"],  $row["hora_de_partida"],  $row["estacion_origen"],  $row["estacion_destino"], $row["habilitado"]);
         }
@@ -149,7 +137,6 @@ include("connection.php");
       }
     
       if ($result->num_rows > 0) {
-          // output data of each row
           if($servicio != null){
             while($row = $result->fetch_assoc()) {
               if($estacion == $row["estacion_id"]){
@@ -159,12 +146,6 @@ include("connection.php");
                 echo "<option value=".$row["estacion_id"].">".$row["nombre"]."</option>";
               }
             }
-            /*
-            //con javascript no deberia dejar que llegue un -1
-            if($diaId == -1){
-              $default = "selected";
-            }
-            */
             echo "<option value=\"-1\">Seleccione una opcion</option>";
           }
           else{
@@ -195,7 +176,6 @@ include("connection.php");
       $sql = "SELECT `fecha_partida_id` FROM `fecha_partida` f WHERE f.`dia_id` = ".$idDiaPartida." AND f.`hora_partida` = '".$horaPartida."'";
       $result = executeQuery($sql);
       if ($result->num_rows > 0) {
-        // output data of each row
         while($row = $result->fetch_assoc()) {
           $fecha_partida_id = $row["fecha_partida_id"];
         }
@@ -222,7 +202,6 @@ include("connection.php");
       $sql = "SELECT `fecha_partida_id` FROM `servicio` s WHERE s.`servicio_id` = ".$idServicio;
       $result = executeQuery($sql);
       if ($result->num_rows > 0) {
-        // output data of each row
         while($row = $result->fetch_assoc()) {
           $fecha_partida_id = $row["fecha_partida_id"];
         }
@@ -233,17 +212,8 @@ include("connection.php");
     }
 
     function disableServicio($idServicio, $status) {
-      //$fecha_partida_id = getFechaPartidaByServicio($idServicio);
       $sql = "UPDATE `servicio` SET `habilitado`= ".$status." WHERE `servicio`.`servicio_id` = ".$idServicio;
       $result = executeQuery($sql);
-      //deleteFechaPartida($fecha_partida_id);
       exit;
     }
-
-    /*
-    function deleteFechaPartida($fecha_partida_id){
-      $sql = "DELETE FROM `fecha_partida` WHERE `fecha_partida`.`fecha_partida_id` = ".$fecha_partida_id;
-      $result = executeQuery($sql);
-    }
-    */
 ?>

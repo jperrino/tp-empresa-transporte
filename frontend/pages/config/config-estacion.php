@@ -67,26 +67,31 @@ if (isset($_POST['action'])) {
     }
 
     function getDatosEstacion($idEstacion) {
-        $sql = "SELECT * FROM estacion e inner join localidad l on (e.localidad_id = l.localidad_id) WHERE `estacion_id` = ".$idEstacion;      
+        $sql = "SELECT  e.`estacion_id`,
+                        l.`detalle` as localidad,
+                        e.`nombre`,
+                        e.`direccion`,
+                        e.`telefono`
+                FROM estacion e inner join localidad l on (e.localidad_id = l.localidad_id) WHERE `estacion_id` = ".$idEstacion;      
         $result = executeQuery($sql);
         if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo "<input class='form-control' type='text' id='input-id' value='".$idEstacion."' hidden />";
+            echo "<input class='form-control' type='text' id='input-id' value='".$row["estacion_id"]."' hidden />";
             echo "<div class='dropdown'>";
             echo "<label for='localidad'>Selecciones una Localidad: </label>";
             echo "<select value='localidad' id='input-localidad'>";                  
-            echo "<option class='dropdown-item' value=".$row["detalle"].">".$row["detalle"]."</option>";   
+            echo "<option class='dropdown-item' value=".$row["detalle"].">".$row["localidad"]."</option>";   
             getLocalidad();            
             echo "</select>";
             echo "<br></br>";
             echo "<div class='form-group'>";
-            echo "<label for='input-estacion'>Estacion</label>";
+            echo "<label for='input-estacion'>Nombre</label>";
             echo "<input class='form-control' type='text' id='input-estacion' value='".$row["nombre"]."' />";
             echo "</div>";
             echo "</div>";
             echo "<div class='form-group'>";
             echo "<label for='input-direccion'>Direccion</label>";
-            echo "<input class='form-control' type='text' id='input-direccion' value=".$row["direccion"]." />";
+            echo "<input class='form-control' type='text' id='input-direccion' value='".$row["direccion"]."' />";
             echo "</div>";
             echo "<div class='form-group'>";
             echo "<label for='input-telefono'>Telefono</label>";

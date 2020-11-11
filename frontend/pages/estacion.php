@@ -5,8 +5,7 @@
 <html lang="en">
 
 <head>
-  <link type="text/css" rel="stylesheet" href="styles/home2.css">
-  <title>Bootstrap Example</title>
+  <title>Estaciones</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,9 +16,11 @@
 <body>
   <div class="container" id="containerr">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand">LOGO</a>
+    <a class="navbar-brand">
+      <img src="imgs/logo_thumb.png">
+      </a>
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="home.html">Home</a>
+        <a class="nav-item nav-link active" href="home.php">Home</a>
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
@@ -44,10 +45,10 @@
         <span class="nav-item nav-link">|</span>
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
-            <a class="nav-item nav-link active" href="calendario-viajes.html">Calendario de Viajes</a>
+            <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="viaje.html">Alta Viajes</a>
+              <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
             </div>
           </div>
         </a>
@@ -62,10 +63,19 @@
           </div>
         </a>
         <span class="nav-item nav-link">|</span>
-        <a class="nav-item nav-link active" href="chofer.html">Alta Choferes</a>
+        <a class="nav-item dropdown active">
+                    <div class="btn-group btn-group-md">
+                        <a class="nav-item nav-link active" href="listado-choferes.php">Listado de Choferes</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
+                            data-toggle="dropdown"></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="chofer.php">Alta Choferes</a>
+                        </div>
+                    </div>
+                </a>
       </div>
       <div>
-        <a href="login.php" class="btn btn-primary">Logout</a>
+        <a href="login.php" class="btn btn-primary">Salir</a>
       </div>
     </nav>
     <div class="container" id="main-container">
@@ -96,21 +106,4 @@
     $(".boton-edit-unidad").on("click", function() {
     window.location.href = "editarEstacion.php?edit=" + this.id;
     })
-/*
-  $(function(){    
-    $('.boton-edit-unidad').click(function(){
-     var btnAction = 'insert';
-     var url = 'config/config-estacion.php',     
-     data = {
-       'action': btnAction,
-       'id-loc' : $('#input-localidad').val(),
-       'dir' : $('#input-direccion').val(),
-       'tel' :$('#input-telefono').val()
-     };     
-     $.post(url, data, function(response) {
-      alert("Estacion agregada satisfactoriamente");
-       //windows.location.href='estacion.php';alert("Estacion agregada satisfactoriamente");
-    });
-   });
-   })*/
   </script>

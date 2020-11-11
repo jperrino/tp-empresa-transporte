@@ -18,14 +18,11 @@ function getUnidades(){
   $result = executeQuery($sql);
 
   if ($result->num_rows > 0) {
-      // output data of each row
       while($row = $result->fetch_assoc()) {
         if(intval($row["habilitada"]) == 0){
           echo "<tr class=\"table-danger\">";
         }
         else echo "<tr>";
-        //echo "<tr>";
-        //echo "<td>". $row["unidad_id"]."</td>";
         echo "<td>". $row["patente"]."</td>";
         echo "<td>". $row["fecha_patentamiento"]."</td>";
         echo "<td>". $row["cantidad_de_asientos_cama"]."</td>";

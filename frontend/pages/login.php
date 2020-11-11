@@ -1,64 +1,45 @@
 <?php
-//include("config/config-valUsuario.php");
 include("config/connection.php");
+
+if(isset($_POST['login'])) { 
+    validacion();
+}
 ?>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 <head>
+    <title>Login</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link type="text/css" rel="stylesheet" href="styles/login.css">
 </head>
-
+<body>
 <div class="login-reg-panel">           
         <div class="white-panel">
             <form class="login-show show-log-panel" method="post">
-                <h2>LOGIN</h2>
-                <input type="text" placeholder="Username" name ="usuario" id="usuario" required>
-                <input type="password" placeholder="Password" name="password" id="password" required>
-                <input type="submit" name="login" value="login"/>
+                <h2>Iniciar Sesion</h2>
+                <input type="text" placeholder="Usuario" name ="usuario" id="usuario" required>
+                <input type="password" placeholder="Contraseña" name="password" id="password" required>
+                <input type="submit" name="login" value="Ingresar"/>
             </form>
-            
+        </div>
+        <div class="col-md-3 offset-md-6 align-self-center" style="height: 100px;">
+        </div>
+        <div id="image-container" class="col-md-3 offset-md-8 align-self-center">
+            <img src="../imgs/logo.png" width="200" height="160">
         </div>
 </div>
 
 <?php
 
-if(isset($_POST['login'])) { 
-    validacion();
-}
 function validacion(){
     $usu = $_POST['usuario'];
     $pas = $_POST['password'];
-    $sql="SELECT * FROM `usuario` WHERE `nombre_usuario`='".$usu."' && `contrasena`='".$pas."'";
+    $sql="SELECT * FROM `usuario` WHERE `nombre_usuario`='".$usu."' AND `contrasena`='".$pas."'";
     $result = executeQuery($sql);  
     if ($result->num_rows > 0) {
-        header('location: http://localhost/main/tp-empresa-transporte/frontend/pages/home.php');
+        header('location: home.php');
         }
     }
 ?>
-
-<!--
-    <script>
-        $(function(){
-            $('.boton-save-estacion').click(function(){
-                var url = 'config/config-valUsuario.php',     
-                data = {
-                'action' : 'action',
-                'usu' : $('#usuario').val(),
-                'pass' : $('#password').val()
-                },
-                success: function(data){
-                    alert("hola");
-                }
-              //  $.post(url, data, function(response) {
-                //    alert(response);
-                    //window.location.replace("home.php/");
-    });
-   });
-   })
-   
-        
-    </script>
--->
+</body>

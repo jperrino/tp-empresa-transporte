@@ -12,7 +12,6 @@ if ($isEdit) {
 <html lang="en">
 
 <head>
-    <link type="text/css" rel="stylesheet" href="styles/home2.css">
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +26,7 @@ if ($isEdit) {
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand">LOGO</a>
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link active" href="home.html">Home</a>
+                <a class="nav-item nav-link active" href="home.php">Home</a>
                 <span class="nav-item nav-link">|</span>
                 <a class="nav-item dropdown active">
                     <div class="btn-group btn-group-md">
@@ -85,7 +84,7 @@ if ($isEdit) {
                 </a>
             </div>
             <div>
-                <a href="login.php" class="btn btn-primary">Logout</a>
+                <a href="login.php" class="btn btn-primary">Salir</a>
             </div>
         </nav>
         <div class="container" id="main-container">
