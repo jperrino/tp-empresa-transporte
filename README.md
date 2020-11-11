@@ -17,8 +17,8 @@ Trello: https://trello.com/b/q8VAMSbz/ucalp-tp-seminario-paradigmas
     - git clone https://github.com/jperrino/tp-empresa-transporte.git
 
 5) Open: "C:\xampp\appache\conf\httpd.conf"
-    - Set: DocumentRoot "C:\xampp\htdocs\main\tp-empresa-transporte\frontend\pages"
-    - Change: In DirectoryIndex change 'home.php' for 'login.php'
+    - Set DocumentRoot "C:\xampp\htdocs\main\tp-empresa-transporte\frontend\pages"
+    - In DirectoryIndex change 'home.php' for 'login.php'
 
 6) Run XAMPP:
     - Start 'Apache' Module
