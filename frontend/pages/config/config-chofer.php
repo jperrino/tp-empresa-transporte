@@ -2,7 +2,7 @@
 include "connection.php";
 include "entity/entity-chofer.php";
 
-$hasAction = isset($_GET['action']);
+$hasAction = isset($_POST['action']);
 
 /*
 if(isset($_GET['edit'])){
@@ -33,40 +33,43 @@ if ($hasAction) {
             break;
         case 'update':
             if (validateFieldsForUpdate()) {
-                updateUnidad(
-                    $_POST['id-unidad'],
-                    $_POST['patente'],
-                    $_POST['fecha-patentamiento'],
-                    $_POST['asientos-cama'],
-                    $_POST['asientos-semi'],
-                    $_POST['tipo-unidad']
+                updateChofer(
+                    $_POST['id'],
+                    $_POST['cuil'],
+                    $_POST['apellido'],
+                    $_POST['nombre'],
+                    $_POST['domicilio'],
+                    $_POST['telefono-1'],
+                    $_POST['telefono-2'],
+                    $_POST['fecha-nacimiento'],
+                    $_POST['fecha-ingreso'],
+                    $_POST['fecha-baja'],
+                    $_POST['motivo-baja'],
+                    $_POST['fecha-vencimiento-carnet']
                 );
             }
             break;
-        case 'delete':
-            if (isset($_POST['id-unidad'])) {
-                disableChofer($_POST['id-unidad'], $_POST['fecha-baja'], $_POST['motivo-baja']);
+        case 'disable':
+            if (validateFieldsForDisable()) {
+                disableChofer($_POST['id'], $_POST['fecha-baja'], $_POST['motivo-baja']);
             }
             break;
     }
 }
 
-function validateFieldsforCreate()
-{
+function validateFieldsforCreate() {
     return isset($_POST['cuil']) && isset($_POST['apellido']) && isset($_POST['nombre']) &&
-        isset($_POST['domicilio']) && isset($_POST['telefono-1']) && isset($_POST['telefono-2']) &&
-        isset($_POST['fecha-nacimiento']) && isset($_POST['fecha-ingreso']) && isset($_POST['fecha-baja']) &&
-        isset($_POST['motivo-baja']) && isset($_POST['fecha-vencimiento-carnet']);
+        isset($_POST['domicilio']) && isset($_POST['telefono-1']) && isset($_POST['fecha-nacimiento']) && 
+        isset($_POST['fecha-ingreso']) && isset($_POST['fecha-vencimiento-carnet']);
 }
 
-function validateFieldsForUpdate()
-{
-    return isset($_POST['id-unidad']) &&
-        isset($_POST['patente']) &&
-        isset($_POST['fecha-patentamiento']) &&
-        isset($_POST['asientos-cama']) &&
-        isset($_POST['asientos-semi']) &&
-        isset($_POST['tipo-unidad']);
+function validateFieldsForUpdate() {
+    return  isset($_POST['apellido']) && isset($_POST['nombre']) && isset($_POST['domicilio']) && 
+            isset($_POST['telefono-1']) && isset($_POST['fecha-nacimiento']) && isset($_POST['fecha-ingreso']);
+}
+
+function validateFieldsForDisable() {
+    return  isset($_POST['fecha-baja']) && isset($_POST['motivo-baja']);
 }
 
 function getChoferes() {
@@ -87,7 +90,6 @@ function getChoferes() {
             }
 
             //echo "<tr>";
-            //echo "<td>". $row["unidad_id"]."</td>";
             echo "<td>" . $row["cuil"] . "</td>";
             echo "<td>" . $row["apellido"] . "</td>";
             echo "<td>" . $row["nombre"] . "</td>";
@@ -95,12 +97,13 @@ function getChoferes() {
             echo "<td>" . $row["telefono_1"] . "</td>";
             echo "<td>" . $row["telefono_2"] . "</td>";
             echo "<td>" . $row["fecha_ingreso"] . "</td>";
-            echo "<td>" . $row["fecha_baja"] . "</td>";
+            if (intval($row["fecha_baja"]) == null) {
+                echo "<td> no disponible </td>";
+            } else {
+                echo "<td>" . $row["fecha_baja"] . "</td>";
+            }
             echo "<td>
           <input type=\"button\" class=\"btn btn-info boton-edit-chofer\" id=\"" . $row["chofer_id"] . "\" value=\"Editar\">
-          <!--
-          <input type=\"button\" class=\"btn btn-danger boton-disable-chofer\" value=\"Deshabilitar\">
-          -->
           </td>";
             echo "</tr>";
         }
@@ -111,7 +114,7 @@ function getChoferes() {
 
 function getChofer($choferId)
 {
-    $sql = "SELECT  c.`cuil`, c.`apellido`, c.`nombre`, c.`domicilio`,
+    $sql = "SELECT  c.`chofer_id`, c.`cuil`, c.`apellido`, c.`nombre`, c.`domicilio`,
                     c.`telefono_1`, c.`telefono_2`, c.`fecha_de_nacimiento`,
                     c.`fecha_de_ingreso`, c.`fecha_de_baja`, c.`motivo_de_baja`,
                     c.`fecha_de_vencimiento_de_carnet`
@@ -123,6 +126,7 @@ function getChofer($choferId)
         // output data of each row
         while ($row = $result->fetch_assoc()) {
             $chofer = new Chofer(
+                $row["chofer_id"],
                 $row["cuil"],
                 $row["apellido"],
                 $row["nombre"],

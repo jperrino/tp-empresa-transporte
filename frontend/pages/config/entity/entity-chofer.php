@@ -3,6 +3,7 @@
 class Chofer
 {
 
+    public $id;
     public $cuil;
     public $apellido;
     public $nombre;
@@ -15,9 +16,21 @@ class Chofer
     public $motivoBaja;
     public $fechaVencimientoCarnet;
 
-    public function __construct($cuil, $apellido, $nombre, $domicilio, $telefono1, $telefono2,
-        $fechaNacimiento, $fechaIngreso, $fechaBaja, $motivoBaja,
-        $fechaVencimientoCarnet) {
+    public function __construct(
+        $id,
+        $cuil,
+        $apellido,
+        $nombre,
+        $domicilio,
+        $telefono1,
+        $telefono2,
+        $fechaNacimiento,
+        $fechaIngreso,
+        $fechaBaja,
+        $motivoBaja,
+        $fechaVencimientoCarnet
+    ) {
+        $this->id = $id;
         $this->cuil = $cuil;
         $this->apellido = $apellido;
         $this->nombre = $nombre;
@@ -29,6 +42,11 @@ class Chofer
         $this->fechaBaja = $fechaBaja;
         $this->motivoBaja = $motivoBaja;
         $this->fechaVencimientoCarnet = $fechaVencimientoCarnet;
+    }
+
+    public function get_id()
+    {
+        return $this->id;
     }
 
     public function get_cuil()
@@ -85,5 +103,4 @@ class Chofer
     {
         return $this->fechaVencimientoCarnet;
     }
-
 }

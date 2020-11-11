@@ -93,68 +93,75 @@ if ($isEdit) {
                     <h2>Chofer</h2>
                     <hr>
                     <form>
+                    <div class="form-group">
+                            <label for="input-id-chofer">ID Chofer</label>
+                            <input class="form-control" type="text" id="input-id-chofer" placeholder="e.g.:1234"
+                                value="<?php echo $isEdit ? $chofer->get_id() : '' ?>" disabled />
+                        </div>
                         <div class="form-group">
                             <label for="input-cuil">CUIL</label>
                             <input class="form-control" type="text" id="input-cuil" placeholder="e.g.:1234"
-                                value="<?php echo ($isEdit) ? $chofer->get_cuil() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_cuil() : '' ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-apellido">Apellido</label>
                             <input class="form-control" type="text" id="input-apellido" placeholder="e.g.:Juan"
-                                value="<?php echo ($isEdit) ? $chofer->get_apellido() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_apellido() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-nombre">Nombre</label>
                             <input class="form-control" type="text" id="input-nombre" placeholder="e.g.:Perez"
-                                value="<?php echo ($isEdit) ? $chofer->get_nombre() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_nombre() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-domicilio">Domicilio</label>
                             <input class="form-control" type="text" id="input-domicilio"
                                 placeholder="e.g.:calle falsa 123"
-                                value="<?php echo ($isEdit) ? $chofer->get_domicilio() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_domicilio() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-telefono-1">Telefono 1</label>
                             <input class="form-control" type="text" id="input-telefono-1"
                                 placeholder="e.g.:221-5555-555"
-                                value="<?php echo ($isEdit) ? $chofer->get_telefono1() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_telefono1() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-telefono-2">Telefono 2</label>
                             <input class="form-control" type="text" id="input-telefono-2"
                                 placeholder="e.g.:221-5555-555"
-                                value="<?php echo ($isEdit) ? $chofer->get_telefono2() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_telefono2() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-fecha-nacimiento">Fecha de Nacimiento</label>
                             <input class="form-control" type="date" id="input-fecha-nacimiento"
-                                value="<?php echo ($isEdit) ? $chofer->get_fechaNacimiento() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_fechaNacimiento() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-fecha-ingreso">Fecha de Ingreso</label>
                             <input class="form-control" type="date" id="input-fecha-ingreso"
-                                value="<?php echo ($isEdit) ? $chofer->get_fechaIngreso() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_fechaIngreso() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-fecha-baja">Fecha de Baja</label>
                             <input class="form-control" type="date" id="input-fecha-baja"
-                                value="<?php echo ($isEdit) ? $chofer->get_fechaBaja() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_fechaBaja() : ''; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="input-motivo-baja">Motivo de Baja</label>
                             <textarea class="form-control" rows="5" id="input-motivo-baja"
                                 placeholder="Detalle de baja ..."
-                                value="<?php echo ($isEdit) ? $chofer->get_motivoBaja() : ''; ?>" ></textarea>
+                                value="<?php echo $isEdit ? $chofer->get_motivoBaja() : ''; ?>" ></textarea>
                         </div>
                         <div class="form-group">
                             <label for="input-fecha-vencimiento-carnet">Fecha de Vencimiento de Carnet</label>
                             <input class="form-control" type="date" id="input-fecha-vencimiento-carnet"
-                                value="<?php echo ($isEdit) ? $chofer->get_fechaVencimientoCarnet() : ''; ?>" />
+                                value="<?php echo $isEdit ? $chofer->get_fechaVencimientoCarnet() : ''; ?>" />
                         </div>
                         <div class="form-group">
-                            <a class="btn btn-info">Guardar</a>
-                            <a class="btn btn-danger">Borrar</a>
+                            <input type="button" class="btn btn-info boton-save-chofer" value="Guardar">
+                            <input type="button" class="btn boton-disable-chofer <?php echo $isEdit && intval($chofer->get_fechaBaja() == null) ? 'btn-danger' : 'btn-success';?>"
+                                   id="<?php echo $isEdit && empty($chofer->get_fechaBaja()) ? 0 : 1;?>"
+                                   value="<?php echo $isEdit && empty($chofer->get_fechaBaja()) ? 'Deshabilitar' : 'Habilitar';?>" >
                         </div>
                     </form>
                 </div>
@@ -175,6 +182,7 @@ if ($isEdit) {
             var url = 'config/config-chofer.php',
                 data = {
                     'action': clickBtnIdAction,
+                    'id': $('#input-id-chofer').val(),
                     'cuil': $('#input-cuil').val(),
                     'apellido': $('#input-apellido').val(),
                     'nombre': $('#input-nombre').val(),
@@ -190,23 +198,25 @@ if ($isEdit) {
             $.post(url, data, function(response) {
                 if (clickBtnIdAction == 'insert') {
                     alert("Chofer agregado satisfactoriamente");
-                } else if (clickBtnIdAction == 'update') {
+                } else {
                     alert("Chofer modificado satisfactoriamente");
                 }
-                window.location.href = 'chofer.php';
+                window.location.href = 'listado-choferes.php';
             });
         });
     })
     $(function() {
-        $('.boton-delete-chofer').click(function() {
-            var url = 'config/config-reparacion.php',
+        $('.boton-disable-chofer').click(function() {
+            var url = 'config/config-chofer.php',
                 data = {
-                    'action': 'delete',
-                    'cuil': $('#input-cuil').val()
+                    'action': 'disable',
+                    'id': $('#input-id-chofer').val(),
+                    'fecha-baja': $('#input-fecha-baja').val(),
+                    'motivo-baja': $('#input-motivo-baja').val()
                 };
             $.post(url, data, function(response) {
-                alert("Chofer borrado satisfactoriamente");
-                window.location.href = 'chofer.php';
+                alert("Chofer deshabilitado satisfactoriamente");
+                window.location.href = 'listado-choferes.php';
             });
         });
     })
