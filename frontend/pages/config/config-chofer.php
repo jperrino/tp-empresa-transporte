@@ -88,8 +88,6 @@ function getChoferes() {
             } else {
                 echo "<tr>";
             }
-
-            //echo "<tr>";
             echo "<td>" . $row["cuil"] . "</td>";
             echo "<td>" . $row["apellido"] . "</td>";
             echo "<td>" . $row["nombre"] . "</td>";
@@ -116,7 +114,9 @@ function getChofer($choferId)
 {
     $sql = "SELECT  c.`chofer_id`, c.`cuil`, c.`apellido`, c.`nombre`, c.`domicilio`,
                     c.`telefono_1`, c.`telefono_2`, c.`fecha_de_nacimiento`,
-                    c.`fecha_de_ingreso`, c.`fecha_de_baja`, c.`motivo_de_baja`,
+                    DATE_FORMAT(c.`fecha_de_ingreso`, \"%Y-%m-%d\") as fecha_ingreso,
+                    DATE_FORMAT(c.`fecha_de_baja`, \"%Y-%m-%d\") as fecha_baja,
+                    c.`motivo_de_baja`,
                     c.`fecha_de_vencimiento_de_carnet`
             FROM `chofer` c
             WHERE c.`chofer_id` = " . $choferId;
@@ -134,8 +134,8 @@ function getChofer($choferId)
                 $row["telefono_1"],
                 $row["telefono_2"],
                 $row["fecha_de_nacimiento"],
-                $row["fecha_de_ingreso"],
-                $row["fecha_de_baja"],
+                $row["fecha_ingreso"],
+                intval($row["fecha_baja"] == null || $row["fecha_baja"] == '0000-00-00' ) ? '' : $row["fecha_baja"],
                 $row["motivo_de_baja"],
                 $row["fecha_de_vencimiento_de_carnet"]
             );

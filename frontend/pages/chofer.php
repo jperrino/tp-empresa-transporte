@@ -65,7 +65,8 @@ if ($isEdit) {
                 <a class="nav-item dropdown active">
                     <div class="btn-group btn-group-md">
                         <a class="nav-item nav-link active" href="estacion.php">Estaciones</a>
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller"
+                            data-toggle="dropdown"></a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="altaEstaciones.php">Alta Estacion</a>
                         </div>
@@ -93,9 +94,9 @@ if ($isEdit) {
                     <h2>Chofer</h2>
                     <hr>
                     <form>
-                    <div class="form-group">
+                        <div class="form-group">
                             <label for="input-id-chofer">ID Chofer</label>
-                            <input class="form-control" type="text" id="input-id-chofer" placeholder="e.g.:1234"
+                            <input class="form-control" type="text" id="input-id-chofer" placeholder="no disponible"
                                 value="<?php echo $isEdit ? $chofer->get_id() : '' ?>" disabled />
                         </div>
                         <div class="form-group">
@@ -150,7 +151,7 @@ if ($isEdit) {
                             <label for="input-motivo-baja">Motivo de Baja</label>
                             <textarea class="form-control" rows="5" id="input-motivo-baja"
                                 placeholder="Detalle de baja ..."
-                                value="<?php echo $isEdit ? $chofer->get_motivoBaja() : ''; ?>" ></textarea>
+                                value="<?php echo $isEdit ? $chofer->get_motivoBaja() : ''; ?>"><?php echo $isEdit ? $chofer->get_motivoBaja() : ''; ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="input-fecha-vencimiento-carnet">Fecha de Vencimiento de Carnet</label>
@@ -159,9 +160,10 @@ if ($isEdit) {
                         </div>
                         <div class="form-group">
                             <input type="button" class="btn btn-info boton-save-chofer" value="Guardar">
-                            <input type="button" class="btn boton-disable-chofer <?php echo $isEdit && intval($chofer->get_fechaBaja() == null) ? 'btn-danger' : 'btn-success';?>"
-                                   id="<?php echo $isEdit && empty($chofer->get_fechaBaja()) ? 0 : 1;?>"
-                                   value="<?php echo $isEdit && empty($chofer->get_fechaBaja()) ? 'Deshabilitar' : 'Habilitar';?>" >
+                            <input type="button" disabled="<?php echo $isEdit ? '' : 'disabled' ?>"
+                                class="btn boton-disable-chofer <?php echo ($isEdit && empty($chofer->get_fechaBaja())) ? 'btn-danger' : (!$isEdit ? 'btn-danger': 'btn-success');?>"
+                                id="<?php echo $isEdit && empty($chofer->get_fechaBaja()) ? 0 : 1;?>"
+                                value="<?php echo ($isEdit && empty($chofer->get_fechaBaja())) ? 'Deshabilitar' : (!$isEdit ? 'Deshabilitar' : 'Habilitar');?>">
                         </div>
                     </form>
                 </div>
@@ -207,15 +209,20 @@ if ($isEdit) {
     })
     $(function() {
         $('.boton-disable-chofer').click(function() {
+            var clickBtnIdAction = this.id;
             var url = 'config/config-chofer.php',
                 data = {
                     'action': 'disable',
                     'id': $('#input-id-chofer').val(),
-                    'fecha-baja': $('#input-fecha-baja').val(),
-                    'motivo-baja': $('#input-motivo-baja').val()
+                    'fecha-baja': clickBtnIdAction == 0 ? $('#input-fecha-baja').val() : '',
+                    'motivo-baja': clickBtnIdAction == 0 ? $('#input-motivo-baja').val() : ''
                 };
             $.post(url, data, function(response) {
-                alert("Chofer deshabilitado satisfactoriamente");
+                if (clickBtnIdAction == 0) {
+                    alert("Chofer deshabilitado satisfactoriamente");
+                } else if (clickBtnIdAction == 1) {
+                    alert("Chofer habilitado satisfactoriamente");
+                }
                 window.location.href = 'listado-choferes.php';
             });
         });
