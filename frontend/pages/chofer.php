@@ -160,7 +160,7 @@ if ($isEdit) {
                         </div>
                         <div class="form-group">
                             <input type="button" class="btn btn-info boton-save-chofer" value="Guardar">
-                            <input type="button" disabled="<?php echo $isEdit ? '' : 'disabled' ?>"
+                            <input type="button" <?php echo $isEdit ? '' : 'disabled' ?>
                                 class="btn boton-disable-chofer <?php echo ($isEdit && empty($chofer->get_fechaBaja())) ? 'btn-danger' : (!$isEdit ? 'btn-danger': 'btn-success');?>"
                                 id="<?php echo $isEdit && empty($chofer->get_fechaBaja()) ? 0 : 1;?>"
                                 value="<?php echo ($isEdit && empty($chofer->get_fechaBaja())) ? 'Deshabilitar' : (!$isEdit ? 'Deshabilitar' : 'Habilitar');?>">
@@ -181,51 +181,84 @@ if ($isEdit) {
     $(function() {
         $('.boton-save-chofer').click(function() {
             var clickBtnIdAction = this.id;
-            var url = 'config/config-chofer.php',
-                data = {
-                    'action': clickBtnIdAction,
-                    'id': $('#input-id-chofer').val(),
-                    'cuil': $('#input-cuil').val(),
-                    'apellido': $('#input-apellido').val(),
-                    'nombre': $('#input-nombre').val(),
-                    'domicilio': $('#input-domicilio').val(),
-                    'telefono-1': $('#input-telefono-1').val(),
-                    'telefono-2': $('#input-telefono-2').val(),
-                    'fecha-nacimiento': $('#input-fecha-nacimiento').val(),
-                    'fecha-ingreso': $('#input-fecha-ingreso').val(),
-                    'fecha-baja': $('#input-fecha-baja').val(),
-                    'motivo-baja': $('#input-motivo-baja').val(),
-                    'fecha-vencimiento-carnet': $('#input-fecha-vencimiento-carnet').val()
-                };
-            $.post(url, data, function(response) {
-                if (clickBtnIdAction == 'insert') {
-                    alert("Chofer agregado satisfactoriamente");
+            if (validateInsertFields()) {
+                if (validateCuilt()) {
+                    var url = 'config/config-chofer.php',
+                        data = {
+                            'action': clickBtnIdAction,
+                            'id': $('#input-id-chofer').val(),
+                            'cuil': $('#input-cuil').val(),
+                            'apellido': $('#input-apellido').val(),
+                            'nombre': $('#input-nombre').val(),
+                            'domicilio': $('#input-domicilio').val(),
+                            'telefono-1': $('#input-telefono-1').val(),
+                            'telefono-2': $('#input-telefono-2').val(),
+                            'fecha-nacimiento': $('#input-fecha-nacimiento').val(),
+                            'fecha-ingreso': $('#input-fecha-ingreso').val(),
+                            'fecha-baja': $('#input-fecha-baja').val(),
+                            'motivo-baja': $('#input-motivo-baja').val(),
+                            'fecha-vencimiento-carnet': $('#input-fecha-vencimiento-carnet').val()
+                        };
+                    $.post(url, data, function(response) {
+                        if (clickBtnIdAction == 'insert') {
+                            alert("Chofer agregado satisfactoriamente");
+                        } else {
+                            alert("Chofer modificado satisfactoriamente");
+                        }
+                        window.location.href = 'listado-choferes.php';
+                    });
                 } else {
-                    alert("Chofer modificado satisfactoriamente");
+                    alert("Formato de CUIL incorrecto.");
                 }
-                window.location.href = 'listado-choferes.php';
-            });
+            } else {
+                alert(
+                    "Campos cuil, apellido, nombre, domicilio, telefono 1, fecha de nacimiento, fecha de ingreso y fecha de vencimiento de carnet no pueden estar vacíos"
+                );
+            }
         });
     })
     $(function() {
         $('.boton-disable-chofer').click(function() {
             var clickBtnIdAction = this.id;
-            var url = 'config/config-chofer.php',
-                data = {
-                    'action': 'disable',
-                    'id': $('#input-id-chofer').val(),
-                    'fecha-baja': clickBtnIdAction == 0 ? $('#input-fecha-baja').val() : '',
-                    'motivo-baja': clickBtnIdAction == 0 ? $('#input-motivo-baja').val() : ''
-                };
-            $.post(url, data, function(response) {
-                if (clickBtnIdAction == 0) {
-                    alert("Chofer deshabilitado satisfactoriamente");
-                } else if (clickBtnIdAction == 1) {
-                    alert("Chofer habilitado satisfactoriamente");
-                }
-                window.location.href = 'listado-choferes.php';
-            });
+            if (validateDisableFields()) {
+                var url = 'config/config-chofer.php',
+                    data = {
+                        'action': 'disable',
+                        'id': $('#input-id-chofer').val(),
+                        'fecha-baja': clickBtnIdAction == 0 ? $('#input-fecha-baja').val() : '',
+                        'motivo-baja': clickBtnIdAction == 0 ? $('#input-motivo-baja').val() : ''
+                    };
+                $.post(url, data, function(response) {
+                    if (clickBtnIdAction == 0) {
+                        alert("Chofer deshabilitado satisfactoriamente");
+                    } else if (clickBtnIdAction == 1) {
+                        alert("Chofer habilitado satisfactoriamente");
+                    }
+                    window.location.href = 'listado-choferes.php';
+                });
+            } else {
+                alert("Campos fecha de baja y motivo de baja no pueden estar vacíos");
+            }
         });
     })
+
+    function validateDisableFields() {
+        return $('#input-fecha-baja').val() != '' && $('#input-motivo-baja').val() != '';
+    }
+
+    function validateInsertFields() {
+        return $('#input-cuil').val() != '' &&
+            $('#input-apellido').val() != '' &&
+            $('#input-nombre').val() != '' &&
+            $('#input-domicilio').val() != '' &&
+            $('#input-telefono-1').val() != '' &&
+            $('#input-fecha-nacimiento').val() != '' &&
+            $('#input-fecha-ingreso').val() != '' &&
+            $('#input-fecha-vencimiento-carnet').val() != '';
+    }
+
+    function validateCuilt() {
+        return /\b(20|23|24|27|30|33|34)?[0-9]{8}?[0-9]/.test($('#input-cuil').val());
+    }
     </script>
 </body>
