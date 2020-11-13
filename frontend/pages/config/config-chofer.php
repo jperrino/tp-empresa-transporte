@@ -198,7 +198,7 @@ function insertChofer(
         function disableChofer($idChofer, $fechaBaja, $motivoBaja)
         {
             $sql = "UPDATE `chofer`
-            SET `fecha_de_baja` = '" . $fechaBaja . "', `motivo_de_baja` = '" . $motivoBaja . "'
+            SET `fecha_de_baja` = '" . $fechaBaja . "', `baja` = 1, `motivo_de_baja` = '" . $motivoBaja . "'
             WHERE `chofer`.`chofer_id` = " . $idChofer;
             
             $result = executeQuery($sql);

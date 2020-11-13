@@ -42,7 +42,7 @@ if (isset($_GET['edit'])) {
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownListadoServicios" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
             </div>
@@ -52,7 +52,7 @@ if (isset($_GET['edit'])) {
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCalendarioViajes" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
             </div>
@@ -84,32 +84,6 @@ if (isset($_GET['edit'])) {
         <a href="login.php" class="btn btn-primary">Salir</a>
       </div>
     </nav>
-    <div class="container" id="main-container">
-      <div class="row" id="unidad-container">
-        <div class="col-md-6">
-          <h2>Unidad</h2>
-          <hr>
-          <form>
-            <div class="form-group" id="form-unidad-id">
-              <label for="input-id-unidad">ID Unidad</label>
-              <input class="form-control" type="text" id="input-id-unidad" placeholder="e.g.:1234" value="<?php echo (isset($_GET['edit']))?$unidad->get_idUnidad():'';?>" disabled />
-            </div>
-            <div class="form-group">
-              <label for="input-patente">Patente</label>
-              <input class="form-control" type="text" id="input-patente" placeholder="ABC-123-DF" value="<?php echo (isset($_GET['edit']))?$unidad->get_patente():'';?>" />
-            </div>
-            <div class="form-group">
-              <label for="input-fecha-patentamiento">Fecha de Patentamiento</label>
-              <input class="form-control" type="date" id="input-fecha-patentamiento" value="<?php echo (isset($_GET['edit']))?$unidad->get_fechaPatentamiento():'';?>" />
-            </div>
-            <div class="form-group">
-              <label for="input-asientos-cama">Asientos Cama</label>
-              <input class="form-control" type="number" id="input-asientos-cama" placeholder="0" value="<?php echo (isset($_GET['edit']))?$unidad->get_asientosCama():'';?>" />
-            </div>
-            <div>
-                <a href="login.html" class="btn btn-primary">Logout</a>
-            </div>
-        </nav>
         <div class="container" id="main-container">
             <div class="row" id="unidad-container">
                 <div class="col-md-6">
@@ -187,8 +161,7 @@ if (isset($_GET['edit'])) {
                 </div>
             </div>
           </form>
-        </div>
-      </div>
+        
       <br>
       <div class="row" id="reparacion-container">
         <div class="col-md-6">

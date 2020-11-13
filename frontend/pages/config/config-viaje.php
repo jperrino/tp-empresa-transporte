@@ -162,10 +162,8 @@ function getServicios($viaje){
   }
 
   function getChoferes($chofer_id){
-    $sql = "SELECT c.cuil,
-                    c.chofer_id
-            FROM `chofer` c
-            WHERE c.baja = 0;";
+    $sql = "SELECT c.cuil, c.chofer_id 
+            FROM `chofer` c WHERE c.fecha_de_baja is NULL or c.fecha_de_baja = '0000-00-00'";
   
     $result = executeQuery($sql);
   

@@ -36,7 +36,7 @@ include("config/config-taller.php");
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="listado-servicios.php">Listado de Servicios</a>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownListadoServicios" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="servicio.php">Alta Servicios</a>
             </div>
@@ -46,7 +46,7 @@ include("config/config-taller.php");
         <a class="nav-item dropdown active">
           <div class="btn-group btn-group-md">
             <a class="nav-item nav-link active" href="calendario-viajes.php">Calendario de Viajes</a>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTaller" data-toggle="dropdown"></a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCalendarioViajes" data-toggle="dropdown"></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="viaje.php">Alta Viajes</a>
             </div>
