@@ -8,9 +8,9 @@ if(isset($_POST['login'])) {
 
 <head>
     <title>Login</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="styles/bootstrap_4-5-2.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="js/bootstrap_4-5-2.min.js"></script>
+    <script src="js/jquery_3-5-1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="styles/login.css">
 </head>
 <body>
